@@ -124,8 +124,17 @@ public class BrickerGameManager extends GameManager {
     }
 
     public static void main(String[] args) {
-        //TODO receive params from cmd
-        BrickerGameManager gameManager = new BrickerGameManager("Bricker", new Vector2(700, 500), new Vector2(10,50));
+        BrickerGameManager gameManager;
+        System.out.println(args[1]);
+        if (args.length == 2) {
+            gameManager = new BrickerGameManager("Bricker",
+                    new Vector2(700, 500),
+                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
+
+        }
+        else {
+            gameManager = new BrickerGameManager("Bricker", new Vector2(700, 500), new Vector2(7,8));
+        }
         gameManager.run();
     }
 }
