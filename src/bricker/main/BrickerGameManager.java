@@ -1,6 +1,9 @@
 package bricker.main;
 
+import bricker.brick_strategies.BasicCollisionStrategy;
+import bricker.brick_strategies.CollisionStrategy;
 import bricker.gameobjects.Ball;
+import bricker.gameobjects.Brick;
 import bricker.gameobjects.Paddle;
 import danogl.GameManager;
 import danogl.GameObject;
@@ -32,7 +35,7 @@ public class BrickerGameManager extends GameManager {
         Vector2 windowDimensions = windowController.getWindowDimensions();
 
         //walls:
-        initializeWalls(windowDimensions);
+        initWalls(windowDimensions);
 
         //background:
         ImageRenderable backgroundImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
@@ -40,6 +43,40 @@ public class BrickerGameManager extends GameManager {
         background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
 
         // creating ball object:
+        initBall(imageReader,soundReader,windowDimensions);
+
+        //create paddle:
+        ImageRenderable paddleImage = imageReader.readImage("assets/paddle.png", true);
+        Paddle paddle = new Paddle(Vector2.ZERO, new Vector2(100, 15), paddleImage, inputListener,
+                new Vector2(0, windowDimensions.x()));
+        paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
+
+        //creating bricks:
+        initBricks(imageReader,windowDimensions);
+
+
+        //adding to the scene
+        gameObjects().addGameObject(background, Layer.BACKGROUND);
+
+        gameObjects().addGameObject(paddle);
+
+
+    }
+
+    private void initWalls(Vector2 windowDimensions) {
+        GameObject ceiling = new GameObject(new Vector2(0, -4), new Vector2(windowDimensions.x(), 3),
+                new RectangleRenderable(Color.RED));
+        GameObject leftWall = new GameObject(new Vector2(-4, 0), new Vector2(3, windowDimensions.y()),
+                new RectangleRenderable(Color.RED));
+        GameObject rightWall = new GameObject(new Vector2(windowDimensions.x(), 0),
+                new Vector2(3, windowDimensions.y()), new RectangleRenderable(Color.RED));
+
+        gameObjects().addGameObject(ceiling);
+        gameObjects().addGameObject(rightWall);
+        gameObjects().addGameObject(leftWall);
+    }
+
+    private void initBall(ImageReader imageReader,SoundReader soundReader,Vector2 windowDimensions) {
         ImageRenderable ballImage = imageReader.readImage("assets/ball.png", true);
         Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
         Ball ball = new Ball(Vector2.ZERO, new Vector2(20, 20), ballImage, collisionSound);
@@ -58,33 +95,14 @@ public class BrickerGameManager extends GameManager {
 
         ball.setCenter(windowDimensions.mult((float) 0.5));
 
-
-        //create paddle:
-        ImageRenderable paddleImage = imageReader.readImage("assets/paddle.png", true);
-        Paddle paddle = new Paddle(Vector2.ZERO, new Vector2(100, 15), paddleImage, inputListener,
-                new Vector2(0, windowDimensions.x()));
-        paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
-
-
-        //adding to the scene
-        gameObjects().addGameObject(background, Layer.BACKGROUND);
         gameObjects().addGameObject(ball);
-        gameObjects().addGameObject(paddle);
-
-
     }
 
-    private void initializeWalls(Vector2 windowDimensions) {
-        GameObject ceiling = new GameObject(new Vector2(0, -4), new Vector2(windowDimensions.x(), 3),
-                new RectangleRenderable(Color.RED));
-        GameObject leftWall = new GameObject(new Vector2(-4, 0), new Vector2(3, windowDimensions.y()),
-                new RectangleRenderable(Color.RED));
-        GameObject rightWall = new GameObject(new Vector2(windowDimensions.x(), 0),
-                new Vector2(3, windowDimensions.y()), new RectangleRenderable(Color.RED));
-
-        gameObjects().addGameObject(ceiling);
-        gameObjects().addGameObject(rightWall);
-        gameObjects().addGameObject(leftWall);
+    private void initBricks(ImageReader imageReader,Vector2 windowDimensions) {
+        ImageRenderable brickImage = imageReader.readImage("assets/brick.png",false);
+        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(gameObjects());
+        Brick brick = new Brick(new Vector2(3,3),new Vector2(windowDimensions.x() - 6, 15),brickImage,collisionStrategy);
+        gameObjects().addGameObject(brick);
     }
 
     public static void main(String[] args) {
