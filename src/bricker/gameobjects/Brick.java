@@ -7,6 +7,9 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class Brick extends GameObject {
+
+    public static final int BRICK_LAYER = 1;
+
     private CollisionStrategy collisionStrategy;
 
     public Brick(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, CollisionStrategy collisionStrategy) {
@@ -19,5 +22,11 @@ public class Brick extends GameObject {
         collisionStrategy.onCollision(this, other);
     }
 
-
+    @Override
+    public boolean shouldCollideWith(GameObject other) {
+        if (other instanceof Brick) {
+            return false;
+        }
+        return super.shouldCollideWith(other);
+    }
 }

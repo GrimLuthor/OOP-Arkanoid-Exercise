@@ -8,6 +8,8 @@ import danogl.util.Vector2;
 
 public class Ball extends GameObject {
 
+    public static final int BALL_LAYER = 2;
+
     private int collisionCounter = 0;
     private Sound collisionSound;
 
@@ -29,4 +31,5 @@ public class Ball extends GameObject {
     public int getCollisionCounter() {
         return collisionCounter;
     }
+
 }
