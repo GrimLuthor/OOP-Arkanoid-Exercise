@@ -9,6 +9,7 @@ import danogl.util.Vector2;
 public class Ball extends GameObject {
 
     public static final int BALL_LAYER = 2;
+    public static final String IMAGE_PATH = "assets/ball.png";
 
     private int collisionCounter = 0;
     private Sound collisionSound;

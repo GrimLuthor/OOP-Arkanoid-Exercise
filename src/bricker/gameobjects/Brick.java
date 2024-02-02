@@ -9,6 +9,7 @@ import danogl.util.Vector2;
 public class Brick extends GameObject {
 
     public static final int BRICK_LAYER = 1;
+    public static final String IMAGE_PATH = "assets/brick.png";
 
     private CollisionStrategy collisionStrategy;
 
