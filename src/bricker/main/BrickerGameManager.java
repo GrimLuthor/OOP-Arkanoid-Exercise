@@ -10,9 +10,11 @@ import danogl.gui.*;
 import danogl.gui.rendering.ImageRenderable;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.TextRenderable;
+import danogl.util.Counter;
 import danogl.util.Vector2;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class BrickerGameManager extends GameManager {
@@ -24,6 +26,7 @@ public class BrickerGameManager extends GameManager {
 
 
     private Vector2 brickParams;
+    private Counter bricksCounter;
 
 
     private SoundReader soundReader;
@@ -58,6 +61,8 @@ public class BrickerGameManager extends GameManager {
         this.windowController = windowController;
 
         this.windowDimensions = windowController.getWindowDimensions();
+        this.bricksCounter = new Counter((int)(brickParams.x() * brickParams.y()));
+
         //layer interactions:
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, Ball.BALL_LAYER, true);
         gameObjects().layers().shouldLayersCollide(Brick.BRICK_LAYER, Ball.BALL_LAYER, true);
@@ -111,6 +116,9 @@ public class BrickerGameManager extends GameManager {
             else {
                 initBall();
             }
+        }
+        if (bricksCounter.value() == 0 || inputListener.isKeyPressed(KeyEvent.VK_W)) {
+            prompt += "You win! Play again?";
         }
         if (!prompt.isEmpty()) {
             if (windowController.openYesNoDialog(prompt)) {
@@ -176,7 +184,7 @@ public class BrickerGameManager extends GameManager {
 
     private void initBricks() {
         ImageRenderable brickImage = imageReader.readImage(Brick.IMAGE_PATH, false);
-        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(gameObjects());
+        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(gameObjects(),bricksCounter);
         float gap = 2;
         float brickWidth = ((windowDimensions.x() - (brickParams.y() * (gap))) / brickParams.y());
         float brickHeight = 15;
