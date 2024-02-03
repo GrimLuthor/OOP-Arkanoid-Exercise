@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.constants.GameConstants;
 import danogl.GameObject;
 import danogl.collisions.GameObjectCollection;
 import danogl.components.Component;
@@ -8,8 +9,6 @@ import danogl.util.Vector2;
 
 public class Heart extends GameObject {
     public static final float HEART_SIZE = 25;
-    public static final int HEART_LAYER = 200;
-    public static final String IMAGE_PATH = "assets/heart.png";
 
     private GameObjectCollection gameObjects;
 
@@ -19,6 +18,6 @@ public class Heart extends GameObject {
     }
 
     public void removeSelf() {
-        gameObjects.removeGameObject(this,HEART_LAYER);
+        gameObjects.removeGameObject(this, GameConstants.HEART_LAYER);
     }
 }

@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.constants.GameConstants;
 import danogl.GameObject;
 import danogl.collisions.GameObjectCollection;
 import danogl.gui.ImageReader;
@@ -8,19 +9,18 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class LivesBar extends GameObject {
-    public static final int MAX_LIVES = 4;
-    public static final float GAP_BETWEEN_HEARTS = 10;
-    public static final int LIVES_BAR_LAYER = 200;
 
-    private int lives = 0;
+    private int livesCount = 0;
     private Heart[] hearts;
 
     private GameObjectCollection gameObjects;
     private ImageReader imageReader;
 
-    public LivesBar(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, int lives, GameObjectCollection gameObjects, ImageReader imageReader) {
+    public LivesBar(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, int lives,
+                    GameObjectCollection gameObjects, ImageReader imageReader) {
         super(topLeftCorner, dimensions, renderable);
-        this.hearts = new Heart[MAX_LIVES];
+
+        this.hearts = new Heart[GameConstants.MAX_LIVES];
         this.gameObjects = gameObjects;
         this.imageReader = imageReader;
 
@@ -30,24 +30,25 @@ public class LivesBar extends GameObject {
     }
 
     public void addLife() {
-        if (lives < MAX_LIVES) {
-            float heartPosX = GAP_BETWEEN_HEARTS+((lives)*(GAP_BETWEEN_HEARTS+Heart.HEART_SIZE));
-            ImageRenderable heartImage = imageReader.readImage(Heart.IMAGE_PATH,true);
-            hearts[lives] = new Heart(new Vector2(heartPosX,GAP_BETWEEN_HEARTS),new Vector2(Heart.HEART_SIZE,Heart.HEART_SIZE),heartImage,gameObjects);
-            gameObjects.addGameObject(hearts[lives],Heart.HEART_LAYER);
-            lives++;
+        if (livesCount < hearts.length) {
+            float heartPosX = GameConstants.GAP_BETWEEN_HEARTS+((livesCount)*(GameConstants.GAP_BETWEEN_HEARTS+Heart.HEART_SIZE));
+            ImageRenderable heartImage = imageReader.readImage(GameConstants.HEART_IMAGE_PATH,true);
+            hearts[livesCount] = new Heart(new Vector2(heartPosX,GameConstants.GAP_BETWEEN_HEARTS),
+                    new Vector2(Heart.HEART_SIZE,Heart.HEART_SIZE),heartImage,gameObjects);
+            gameObjects.addGameObject(hearts[livesCount],GameConstants.HEART_LAYER);
+            livesCount++;
         }
 
     }
 
     public void removeLife() {
-        if (lives > 0) {
-            lives--;
-            hearts[lives].removeSelf();
+        if (livesCount > 0) {
+            livesCount--;
+            hearts[livesCount].removeSelf();
         }
     }
 
-    public int getLives () {
-        return this.lives;
+    public int getLivesCount() {
+        return this.livesCount;
     }
 }
