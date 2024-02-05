@@ -40,7 +40,7 @@ public class Paddle extends GameObject {
         setVelocity(movementDirection);
 
         if (getTopLeftCorner().x() < rangeOfMovement.x()) {
-            setTopLeftCorner(new Vector2(0, getTopLeftCorner().y()));
+            setTopLeftCorner(new Vector2(rangeOfMovement.x(), getTopLeftCorner().y()));
         }
         if (getTopLeftCorner().x() > rangeOfMovement.y() - getDimensions().x()) {
             setTopLeftCorner(new Vector2(rangeOfMovement.y() - getDimensions().x(), getTopLeftCorner().y()));

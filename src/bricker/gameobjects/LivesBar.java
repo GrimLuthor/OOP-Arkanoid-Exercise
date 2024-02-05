@@ -1,6 +1,7 @@
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
+import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.GameObjectCollection;
 import danogl.gui.ImageReader;
@@ -13,15 +14,15 @@ public class LivesBar extends GameObject {
     private int livesCount = 0;
     private Heart[] hearts;
 
-    private GameObjectCollection gameObjects;
+    private BrickerGameManager gameManager;
     private ImageReader imageReader;
 
     public LivesBar(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, int lives,
-                    GameObjectCollection gameObjects, ImageReader imageReader) {
+                    BrickerGameManager gameManager, ImageReader imageReader) {
         super(topLeftCorner, dimensions, renderable);
 
         this.hearts = new Heart[GameConstants.MAX_LIVES];
-        this.gameObjects = gameObjects;
+        this.gameManager = gameManager;
         this.imageReader = imageReader;
 
         for (int i = 0; i < lives; i++) {
@@ -31,11 +32,12 @@ public class LivesBar extends GameObject {
 
     public void addLife() {
         if (livesCount < hearts.length) {
-            float heartPosX = GameConstants.GAP_BETWEEN_HEARTS+((livesCount)*(GameConstants.GAP_BETWEEN_HEARTS+Heart.HEART_SIZE));
+            float heartPosX = GameConstants.GAP_BETWEEN_HEARTS+((livesCount)*
+                    (GameConstants.GAP_BETWEEN_HEARTS+GameConstants.HEART_SIZE));
             ImageRenderable heartImage = imageReader.readImage(GameConstants.HEART_IMAGE_PATH,true);
             hearts[livesCount] = new Heart(new Vector2(heartPosX,GameConstants.GAP_BETWEEN_HEARTS),
-                    new Vector2(Heart.HEART_SIZE,Heart.HEART_SIZE),heartImage,gameObjects);
-            gameObjects.addGameObject(hearts[livesCount],GameConstants.HEART_LAYER);
+                    new Vector2(GameConstants.HEART_SIZE,GameConstants.HEART_SIZE),heartImage,gameManager);
+            gameManager.addObjectToRender(hearts[livesCount],GameConstants.HEART_LAYER);
             livesCount++;
         }
 

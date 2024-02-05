@@ -25,6 +25,9 @@ public class GameConstants {
 
     // Placing Params:
     public static final float GAP_BETWEEN_HEARTS = 10;
+    public static final float HEART_SIZE = 25;
+
+    public static final float GAP_BETWEEN_BRICKS = 3;
 
     // Sound Paths:
     public static final String BALL_IMPACT_SOUND_PATH = "assets/blop_cut_silenced.wav";

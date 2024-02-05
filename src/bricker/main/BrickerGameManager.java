@@ -38,6 +38,7 @@ public class BrickerGameManager extends GameManager {
     private GameObject livesCounter;
     private TextRenderable livesCounterLabel;
 
+
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions) {
         super(windowTitle, windowDimensions);
         this.brickParams = new Vector2(7, 8);
@@ -81,7 +82,6 @@ public class BrickerGameManager extends GameManager {
         //creating paddle:
         initPaddle();
 
-
         //creating bricks:
         initBricks();
     }
@@ -91,23 +91,24 @@ public class BrickerGameManager extends GameManager {
         Paddle paddle = new Paddle(Vector2.ZERO, new Vector2(100, 15), paddleImage, inputListener,
                 new Vector2(0, windowDimensions.x()));
         paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
-        gameObjects().addGameObject(paddle);
+       addObjectToRender(paddle);
     }
 
     private void initBackground() {
         ImageRenderable backgroundImage = imageReader.readImage(GameConstants.BACKGROUND_IMAGE_PATH, false);
         GameObject background = new GameObject(Vector2.ZERO, windowDimensions, backgroundImage);
         background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
-        gameObjects().addGameObject(background, GameConstants.BACKGROUND_IMAGE_LAYER);
+        addObjectToRender(background, GameConstants.BACKGROUND_IMAGE_LAYER);
     }
 
     private void initLivesBar(ImageReader imageReader) {
-        livesBar = new LivesBar(Vector2.ZERO, Vector2.ZERO, null, 3, gameObjects(), imageReader);
+        livesBar = new LivesBar(Vector2.ZERO, Vector2.ZERO, null, 3, this, imageReader);
 
         livesCounterLabel = new TextRenderable("" + livesBar.getLivesCount());
         livesCounterLabel.setColor(Color.GREEN);
-        livesCounter = new GameObject(new Vector2(windowDimensions.x() - 25, 5), new Vector2(20, 20), livesCounterLabel);
-        gameObjects().addGameObject(livesCounter, 200);
+        livesCounter = new GameObject(new Vector2(windowDimensions.x() - 25, 5),
+                new Vector2(20, 20), livesCounterLabel);
+        addObjectToRender(livesCounter, 200);
     }
 
     @Override
@@ -162,9 +163,9 @@ public class BrickerGameManager extends GameManager {
         GameObject rightWall = new GameObject(new Vector2(windowDimensions.x(), 0),
                 new Vector2(3, windowDimensions.y()), new RectangleRenderable(Color.RED));
 
-        gameObjects().addGameObject(ceiling);
-        gameObjects().addGameObject(rightWall);
-        gameObjects().addGameObject(leftWall);
+        addObjectToRender(ceiling);
+        addObjectToRender(rightWall);
+        addObjectToRender(leftWall);
     }
 
     private void initBall() {
@@ -187,28 +188,44 @@ public class BrickerGameManager extends GameManager {
         ball.setCenter(windowDimensions.mult((float) 0.5));
 
         this.ball = ball;
-        gameObjects().addGameObject(ball, GameConstants.BALL_LAYER);
+        addObjectToRender(ball, GameConstants.BALL_LAYER);
     }
 
     private void initBricks() {
         ImageRenderable brickImage = imageReader.readImage(GameConstants.BRICK_IMAGE_PATH, false);
-        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(gameObjects(), bricksCounter);
-        float gap = 2;
-        float brickWidth = ((windowDimensions.x() - (brickParams.y() * (gap))) / brickParams.y());
+        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(this, bricksCounter);
+        float brickWidth = ((windowDimensions.x() - (brickParams.y() * (GameConstants.GAP_BETWEEN_BRICKS))) / brickParams.y());
         float brickHeight = 15;
 
-        float topLeftX = gap;
-        float topLeftY = gap;
+        float topLeftX = GameConstants.GAP_BETWEEN_BRICKS;
+        float topLeftY = GameConstants.GAP_BETWEEN_BRICKS;
         for (int row = 0; row < brickParams.x(); row++) {
             for (int col = 0; col < brickParams.y(); col++) {
                 Brick newBrick = new Brick(new Vector2(topLeftX, topLeftY),
                         new Vector2(brickWidth, brickHeight), brickImage, collisionStrategy);
-                gameObjects().addGameObject(newBrick, GameConstants.BRICK_LAYER);
-                topLeftX += brickWidth + gap;
+                addObjectToRender(newBrick, GameConstants.BRICK_LAYER);
+                topLeftX += brickWidth + GameConstants.GAP_BETWEEN_BRICKS;
             }
-            topLeftX = gap;
-            topLeftY += brickHeight + gap;
+            topLeftX = GameConstants.GAP_BETWEEN_BRICKS;
+            topLeftY += brickHeight + GameConstants.GAP_BETWEEN_BRICKS;
         }
+    }
+
+
+    public void addObjectToRender(GameObject gameObject) {
+        gameObjects().addGameObject(gameObject);
+    }
+
+    public void addObjectToRender(GameObject gameObject, int layer) {
+        gameObjects().addGameObject(gameObject,layer);
+    }
+
+    public void removeObjectFromRender(GameObject gameObject) {
+        gameObjects().removeGameObject(gameObject);
+    }
+
+    public void removeObjectFromRender(GameObject gameObject, int layer) {
+        gameObjects().removeGameObject(gameObject,layer);
     }
 
     public static void main(String[] args) {
@@ -220,8 +237,7 @@ public class BrickerGameManager extends GameManager {
 
         } else {
             gameManager = new BrickerGameManager(GameConstants.TITLE_NAME,
-                    new Vector2(700, 500),
-                    new Vector2(7, 8));
+                    new Vector2(700, 500));
         }
         gameManager.run();
     }
