@@ -10,6 +10,7 @@ import danogl.util.Vector2;
 
 public class Heart extends GameObject {
 
+    private static final String TAG = GameConstants.HEART_TAG;
 
     private BrickerGameManager gameManager;
 
@@ -20,5 +21,9 @@ public class Heart extends GameObject {
 
     public void removeSelf() {
         gameManager.removeObjectFromRender(this, GameConstants.HEART_LAYER);
+    }
+
+    public String getTag() {
+        return TAG;
     }
 }

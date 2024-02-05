@@ -11,19 +11,19 @@ import danogl.util.Vector2;
 
 public class LivesBar extends GameObject {
 
+    private static final String TAG = GameConstants.LIVES_BAR_TAG;
+
     private int livesCount = 0;
     private Heart[] hearts;
 
     private BrickerGameManager gameManager;
-    private ImageReader imageReader;
 
     public LivesBar(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, int lives,
-                    BrickerGameManager gameManager, ImageReader imageReader) {
+                    BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
 
         this.hearts = new Heart[GameConstants.MAX_LIVES];
         this.gameManager = gameManager;
-        this.imageReader = imageReader;
 
         for (int i = 0; i < lives; i++) {
             addLife();
@@ -34,7 +34,7 @@ public class LivesBar extends GameObject {
         if (livesCount < hearts.length) {
             float heartPosX = GameConstants.GAP_BETWEEN_HEARTS+((livesCount)*
                     (GameConstants.GAP_BETWEEN_HEARTS+GameConstants.HEART_SIZE));
-            ImageRenderable heartImage = imageReader.readImage(GameConstants.HEART_IMAGE_PATH,true);
+            ImageRenderable heartImage = gameManager.getImageReader().readImage(GameConstants.HEART_IMAGE_PATH,true);
             hearts[livesCount] = new Heart(new Vector2(heartPosX,GameConstants.GAP_BETWEEN_HEARTS),
                     new Vector2(GameConstants.HEART_SIZE,GameConstants.HEART_SIZE),heartImage,gameManager);
             gameManager.addObjectToRender(hearts[livesCount],GameConstants.HEART_LAYER);
@@ -52,5 +52,9 @@ public class LivesBar extends GameObject {
 
     public int getLivesCount() {
         return this.livesCount;
+    }
+
+    public String getTag() {
+        return TAG;
     }
 }

@@ -1,13 +1,14 @@
 package bricker.main;
 
+import bricker.brick_strategies.*;
 import bricker.constants.*;
-import bricker.brick_strategies.BasicCollisionStrategy;
 import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.components.CoordinateSpace;
 import danogl.gui.*;
+import danogl.gui.rendering.Camera;
 import danogl.gui.rendering.ImageRenderable;
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.gui.rendering.TextRenderable;
@@ -25,6 +26,7 @@ public class BrickerGameManager extends GameManager {
 
 
     private Vector2 brickParams;
+
     private Counter bricksCounter;
 
 
@@ -47,6 +49,30 @@ public class BrickerGameManager extends GameManager {
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions, Vector2 brickParams) {
         super(windowTitle, windowDimensions);
         this.brickParams = brickParams;
+    }
+
+    public Vector2 getWindowDimensions() {
+        return windowDimensions;
+    }
+
+    public SoundReader getSoundReader() {
+        return soundReader;
+    }
+
+    public ImageReader getImageReader() {
+        return imageReader;
+    }
+
+    public UserInputListener getInputListener() {
+        return inputListener;
+    }
+
+    public WindowController getWindowController() {
+        return windowController;
+    }
+
+    public Counter getBricksCounter() {
+        return bricksCounter;
     }
 
     @Override
@@ -91,7 +117,7 @@ public class BrickerGameManager extends GameManager {
         Paddle paddle = new Paddle(Vector2.ZERO, new Vector2(100, 15), paddleImage, inputListener,
                 new Vector2(0, windowDimensions.x()));
         paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
-       addObjectToRender(paddle);
+        addObjectToRender(paddle);
     }
 
     private void initBackground() {
@@ -102,7 +128,7 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void initLivesBar(ImageReader imageReader) {
-        livesBar = new LivesBar(Vector2.ZERO, Vector2.ZERO, null, 3, this, imageReader);
+        livesBar = new LivesBar(Vector2.ZERO, Vector2.ZERO, null, 3, this);
 
         livesCounterLabel = new TextRenderable("" + livesBar.getLivesCount());
         livesCounterLabel.setColor(Color.GREEN);
@@ -157,11 +183,11 @@ public class BrickerGameManager extends GameManager {
 
     private void initWalls() {
         GameObject ceiling = new GameObject(new Vector2(0, -4), new Vector2(windowDimensions.x(), 3),
-                new RectangleRenderable(Color.RED));
+                new RectangleRenderable(Color.BLUE));
         GameObject leftWall = new GameObject(new Vector2(-4, 0), new Vector2(3, windowDimensions.y()),
-                new RectangleRenderable(Color.RED));
+                new RectangleRenderable(Color.BLUE));
         GameObject rightWall = new GameObject(new Vector2(windowDimensions.x(), 0),
-                new Vector2(3, windowDimensions.y()), new RectangleRenderable(Color.RED));
+                new Vector2(3, windowDimensions.y()), new RectangleRenderable(Color.BLUE));
 
         addObjectToRender(ceiling);
         addObjectToRender(rightWall);
@@ -171,7 +197,8 @@ public class BrickerGameManager extends GameManager {
     private void initBall() {
         ImageRenderable ballImage = imageReader.readImage(GameConstants.BALL_IMAGE_PATH, true);
         Sound collisionSound = soundReader.readSound(GameConstants.BALL_IMPACT_SOUND_PATH);
-        Ball ball = new Ball(Vector2.ZERO, new Vector2(20, 20), ballImage, collisionSound);
+        Ball ball = new Ball(Vector2.ZERO, new Vector2(GameConstants.BALL_SIZE, GameConstants.BALL_SIZE),
+                ballImage, collisionSound, this);
 
         //setting velocity and position
         float ballVelX = GameConstants.BALL_SPEED;
@@ -193,7 +220,13 @@ public class BrickerGameManager extends GameManager {
 
     private void initBricks() {
         ImageRenderable brickImage = imageReader.readImage(GameConstants.BRICK_IMAGE_PATH, false);
-        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(this, bricksCounter);
+
+//        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(this, bricksCounter);
+//        ChangeCameraCollisionStrategy collisionStrategy = new ChangeCameraCollisionStrategy(this);
+//        AddPuckCollisionStrategy collisionStrategy = new AddPuckCollisionStrategy(this);
+        Random random = new Random();
+        CollisionStrategyFactory collisionStrategyFactory = new CollisionStrategyFactory();
+
         float brickWidth = ((windowDimensions.x() - (brickParams.y() * (GameConstants.GAP_BETWEEN_BRICKS))) / brickParams.y());
         float brickHeight = 15;
 
@@ -201,6 +234,10 @@ public class BrickerGameManager extends GameManager {
         float topLeftY = GameConstants.GAP_BETWEEN_BRICKS;
         for (int row = 0; row < brickParams.x(); row++) {
             for (int col = 0; col < brickParams.y(); col++) {
+
+                CollisionStrategy collisionStrategy = collisionStrategyFactory.generateStrategy(this,
+                        random.nextInt(10));
+
                 Brick newBrick = new Brick(new Vector2(topLeftX, topLeftY),
                         new Vector2(brickWidth, brickHeight), brickImage, collisionStrategy);
                 addObjectToRender(newBrick, GameConstants.BRICK_LAYER);
@@ -217,7 +254,7 @@ public class BrickerGameManager extends GameManager {
     }
 
     public void addObjectToRender(GameObject gameObject, int layer) {
-        gameObjects().addGameObject(gameObject,layer);
+        gameObjects().addGameObject(gameObject, layer);
     }
 
     public void removeObjectFromRender(GameObject gameObject) {
@@ -225,7 +262,22 @@ public class BrickerGameManager extends GameManager {
     }
 
     public void removeObjectFromRender(GameObject gameObject, int layer) {
-        gameObjects().removeGameObject(gameObject,layer);
+        gameObjects().removeGameObject(gameObject, layer);
+    }
+
+    public void setCameraToFollowBall() {
+        setCamera(
+                new Camera(
+                        ball, //object to follow
+                        Vector2.ZERO, //follow the center of the object
+                        windowController.getWindowDimensions().mult(1.2f), //widen the frame a bit
+                        windowController.getWindowDimensions() //share the window dimensions
+                )
+        );
+    }
+
+    public void revertCamera() {
+        setCamera(null);
     }
 
     public static void main(String[] args) {

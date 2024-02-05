@@ -1,5 +1,6 @@
 package bricker.gameobjects;
 
+import bricker.constants.GameConstants;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.gui.UserInputListener;
@@ -9,6 +10,8 @@ import danogl.util.Vector2;
 import java.awt.event.KeyEvent;
 
 public class Paddle extends GameObject {
+
+    private static final String TAG = GameConstants.PADDLE_TAG;
 
     private static final float MOVEMENT_SPEED = 250;
     private UserInputListener inputListener;
@@ -45,5 +48,9 @@ public class Paddle extends GameObject {
         if (getTopLeftCorner().x() > rangeOfMovement.y() - getDimensions().x()) {
             setTopLeftCorner(new Vector2(rangeOfMovement.y() - getDimensions().x(), getTopLeftCorner().y()));
         }
+    }
+
+    public String getTag() {
+        return TAG;
     }
 }
