@@ -13,4 +13,9 @@ public class Puck extends Ball{
     public Puck(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound, BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable, collisionSound, gameManager);
     }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
 }
