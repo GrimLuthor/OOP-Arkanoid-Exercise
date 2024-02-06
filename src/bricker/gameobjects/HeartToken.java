@@ -22,4 +22,12 @@ public class HeartToken extends Heart{
     public void removeSelf() {
         getGameManager().removeObjectFromRender(this, GameConstants.HEART_TOKEN_LAYER);
     }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (getCenter().y() > getGameManager().getWindowDimensions().y()) {
+            removeSelf();
+        }
+    }
 }
