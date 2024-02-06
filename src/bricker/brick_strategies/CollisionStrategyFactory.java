@@ -7,7 +7,7 @@ public class CollisionStrategyFactory {
 
     public CollisionStrategy generateStrategy(BrickerGameManager gameManager, int randomNum) {
         return switch (randomNum) {
-            case 0 -> new AddDiskCollisionStrategy(gameManager);
+            case 0 -> new AddPaddleCollisionStrategy(gameManager);
             case 1 -> new AddHeartCollisionStrategy(gameManager);
             case 2 -> new AddPuckCollisionStrategy(gameManager);
             case 3 -> new ChangeCameraCollisionStrategy(gameManager);

@@ -1,7 +1,7 @@
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
-import bricker.gameobjects.Heart;
+import bricker.gameobjects.HeartToken;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.gui.rendering.ImageRenderable;
@@ -25,9 +25,9 @@ public class AddHeartCollisionStrategy implements CollisionStrategy {
         ImageRenderable heartImage = gameManager.getImageReader().readImage(
                 GameConstants.HEART_IMAGE_PATH, true);
 
-        Heart heartToken = new Heart(heartPos, heartDims, heartImage, gameManager, GameConstants.BALL_LAYER);
+        HeartToken heartToken = new HeartToken(heartPos, heartDims, heartImage, gameManager);
         heartToken.setVelocity(Vector2.DOWN.mult(GameConstants.HEART_SPEED));
-        gameManager.addObjectToRender(heartToken, GameConstants.BALL_LAYER);
+        gameManager.addObjectToRender(heartToken, GameConstants.HEART_TOKEN_LAYER);
 
         gameManager.getBricksCounter().decrement();
         gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);

@@ -1,7 +1,8 @@
 package bricker.main;
 
-import bricker.brick_strategies.*;
-import bricker.constants.*;
+import bricker.brick_strategies.CollisionStrategy;
+import bricker.brick_strategies.CollisionStrategyFactory;
+import bricker.constants.GameConstants;
 import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
@@ -22,6 +23,16 @@ import java.util.Random;
 public class BrickerGameManager extends GameManager {
 
     private Ball ball;
+
+    public ExtraPaddle getExtraPaddle() {
+        return extraPaddle;
+    }
+
+    public void setExtraPaddle(ExtraPaddle extraPaddle) {
+        this.extraPaddle = extraPaddle;
+    }
+
+    private ExtraPaddle extraPaddle;
     private Vector2 windowDimensions;
     private Vector2 brickParams;
 
@@ -46,6 +57,20 @@ public class BrickerGameManager extends GameManager {
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions, Vector2 brickParams) {
         super(windowTitle, windowDimensions);
         this.brickParams = brickParams;
+    }
+
+    public static void main(String[] args) {
+        BrickerGameManager gameManager;
+        if (args.length == 2) {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME,
+                    new Vector2(700, 500),
+                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
+
+        } else {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME,
+                    new Vector2(700, 500));
+        }
+        gameManager.run();
     }
 
     public Vector2 getWindowDimensions() {
@@ -93,6 +118,9 @@ public class BrickerGameManager extends GameManager {
         //layer interactions:
         gameObjects().layers().shouldLayersCollide(Layer.DEFAULT, GameConstants.BALL_LAYER, true);
         gameObjects().layers().shouldLayersCollide(GameConstants.BRICK_LAYER, GameConstants.BALL_LAYER, true);
+        gameObjects().layers().shouldLayersCollide(GameConstants.PADDLE_LAYER, GameConstants.BALL_LAYER, true);
+        gameObjects().layers().shouldLayersCollide(GameConstants.HEART_TOKEN_LAYER, GameConstants.PADDLE_LAYER, true);
+        gameObjects().layers().shouldLayersCollide(GameConstants.EXTRA_PADDLE_LAYER, GameConstants.BALL_LAYER, true);
 
         // creating lives bar:
         initLivesBar(imageReader);
@@ -119,7 +147,7 @@ public class BrickerGameManager extends GameManager {
         Paddle paddle = new Paddle(Vector2.ZERO, GameConstants.PADDLE_SIZE, paddleImage, this,
                 Vector2.DOWN.mult(windowDimensions.x()));
         paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
-        addObjectToRender(paddle);
+        addObjectToRender(paddle, GameConstants.PADDLE_LAYER);
     }
 
     private void initBackground() {
@@ -143,12 +171,15 @@ public class BrickerGameManager extends GameManager {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        String prompt = "";
-        float ballHeight = ball.getCenter().y();
-        boolean decrease = ballHeight > windowDimensions.y();
-        boolean isOver = updateLivesBar(decrease, false);
+        if (ball.getCenter().y() > windowDimensions.y()) {
+            decreaseLives();
+            initBall();
+            ball.setCenter(windowDimensions.mult(0.5f));
+        }
 
-        if (isOver) {
+        String prompt = "";
+
+        if (livesBar.getLivesCount() == 0) {
             prompt += "You lose! Play again?";
         }
 
@@ -163,27 +194,16 @@ public class BrickerGameManager extends GameManager {
             }
         }
     }
+    public void decreaseLives() {
+        livesBar.removeLife();
+        updateLivesCounter();
 
-    public boolean updateLivesBar(boolean decrease, boolean increase) {
-        if (decrease) {
-            float ballHeight = ball.getCenter().y();
-            if (ballHeight > windowDimensions.y()) {
-                livesBar.removeLife();
-                updateLivesCounter();
-
-                if (livesBar.getLivesCount() == 0) {
-                    return true; // return true if no lives left
-                } else {
-                    initBall();
-                }
-            }
-        }
-        else if (increase){
-            livesBar.addLife();
-            updateLivesCounter();
-        }
-        return false;
     }
+    public void increaseLives() {
+        livesBar.addLife();
+        updateLivesCounter();
+    }
+
     private void updateLivesCounter() {
         if (livesBar.getLivesCount() >= 3) {
             livesCounterLabel.setColor(Color.GREEN);
@@ -267,7 +287,6 @@ public class BrickerGameManager extends GameManager {
         }
     }
 
-
     public void addObjectToRender(GameObject gameObject) {
         gameObjects().addGameObject(gameObject);
     }
@@ -297,19 +316,5 @@ public class BrickerGameManager extends GameManager {
 
     public void revertCamera() {
         setCamera(null);
-    }
-
-    public static void main(String[] args) {
-        BrickerGameManager gameManager;
-        if (args.length == 2) {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME,
-                    new Vector2(700, 500),
-                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
-
-        } else {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME,
-                    new Vector2(700, 500));
-        }
-        gameManager.run();
     }
 }

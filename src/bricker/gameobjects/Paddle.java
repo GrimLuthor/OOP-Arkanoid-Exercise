@@ -4,7 +4,6 @@ import bricker.constants.GameConstants;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
-import danogl.gui.UserInputListener;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
@@ -28,12 +27,10 @@ public class Paddle extends GameObject {
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-        if (other.getTag().equals(GameConstants.HEART_TAG) && getTag().equals(GameConstants.PADDLE_TAG)) {
-            Heart heart = (Heart) other;
-            heart.removeSelf(); // where should we remove it?
-            if (gameManager.getLivesBar().getLivesCount() < GameConstants.MAX_LIVES) {
-                gameManager.updateLivesBar(false, true);
-            }
+        if (other.getTag().equals(GameConstants.HEART_TOKEN_TAG)) {
+            gameManager.removeObjectFromRender(other, GameConstants.HEART_TOKEN_LAYER);
+            gameManager.increaseLives();
+
         }
         super.onCollisionEnter(other, collision);
     }

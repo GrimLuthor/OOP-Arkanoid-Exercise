@@ -26,7 +26,8 @@ public class ExtraPaddle extends Paddle {
         super.onCollisionEnter(other, collision);
         collisionCounter.increment();
         if (collisionCounter.value() > GameConstants.COLLISIONS_TO_REMOVE_EXTRA_PADDLE) {
-            getGameManager().removeObjectFromRender(this);
+            getGameManager().removeObjectFromRender(this, GameConstants.EXTRA_PADDLE_LAYER);
+            getGameManager().setExtraPaddle(null);
         }
     }
 

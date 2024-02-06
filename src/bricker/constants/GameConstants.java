@@ -20,6 +20,9 @@ public class GameConstants {
     public static final int HEART_LAYER = 200;
     public static final int BRICK_LAYER = 1;
     public static final int BALL_LAYER = 2;
+    public static final int PADDLE_LAYER = 3;
+    public static final int EXTRA_PADDLE_LAYER = 4;
+    public static final int HEART_TOKEN_LAYER = 5;
 
     // Texture Paths:
     public static final String HEART_IMAGE_PATH = "assets/heart.png";
@@ -47,5 +50,6 @@ public class GameConstants {
     public static final String PADDLE_TAG = "Paddle";
     public static final String PUCK_TAG = "Puckus Maximus";
     public static final String EXTRA_PADDLE_TAG = "Extrus Paddleus";
+    public static final String HEART_TOKEN_TAG = "Heartus Tokenus";
 }
 

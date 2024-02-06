@@ -36,7 +36,7 @@ public class LivesBar extends GameObject {
                     (GameConstants.GAP_BETWEEN_HEARTS+GameConstants.HEART_SIZE));
             ImageRenderable heartImage = gameManager.getImageReader().readImage(GameConstants.HEART_IMAGE_PATH,true);
             hearts[livesCount] = new Heart(new Vector2(heartPosX,GameConstants.GAP_BETWEEN_HEARTS),
-                    new Vector2(GameConstants.HEART_SIZE,GameConstants.HEART_SIZE),heartImage,gameManager, GameConstants.HEART_LAYER);
+                    new Vector2(GameConstants.HEART_SIZE,GameConstants.HEART_SIZE),heartImage,gameManager);
             gameManager.addObjectToRender(hearts[livesCount],GameConstants.HEART_LAYER);
             livesCount++;
         }
