@@ -121,6 +121,7 @@ public class BrickerGameManager extends GameManager {
         gameObjects().layers().shouldLayersCollide(GameConstants.PADDLE_LAYER, GameConstants.BALL_LAYER, true);
         gameObjects().layers().shouldLayersCollide(GameConstants.HEART_TOKEN_LAYER, GameConstants.PADDLE_LAYER, true);
         gameObjects().layers().shouldLayersCollide(GameConstants.EXTRA_PADDLE_LAYER, GameConstants.BALL_LAYER, true);
+        gameObjects().layers().shouldLayersCollide(GameConstants.BALL_LAYER, GameConstants.BALL_LAYER, true);
 
         // creating lives bar:
         initLivesBar(imageReader);
@@ -173,6 +174,7 @@ public class BrickerGameManager extends GameManager {
         super.update(deltaTime);
         if (ball.getCenter().y() > windowDimensions.y()) {
             decreaseLives();
+            revertCamera();
             initBall();
             ball.setCenter(windowDimensions.mult(0.5f));
         }
@@ -260,9 +262,6 @@ public class BrickerGameManager extends GameManager {
     private void initBricks() {
         ImageRenderable brickImage = imageReader.readImage(GameConstants.BRICK_IMAGE_PATH, false);
 
-//        BasicCollisionStrategy collisionStrategy = new BasicCollisionStrategy(this, bricksCounter);
-//        ChangeCameraCollisionStrategy collisionStrategy = new ChangeCameraCollisionStrategy(this);
-//        AddPuckCollisionStrategy collisionStrategy = new AddPuckCollisionStrategy(this);
         Random random = new Random();
         CollisionStrategyFactory collisionStrategyFactory = new CollisionStrategyFactory();
 

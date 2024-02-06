@@ -9,13 +9,13 @@ import danogl.util.Vector2;
 
 public class Brick extends GameObject {
 
-    private static final String TAG = GameConstants.BRICK_TAG;
 
-    private CollisionStrategy collisionStrategy;
+    private final CollisionStrategy collisionStrategy;
 
     public Brick(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, CollisionStrategy collisionStrategy) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionStrategy = collisionStrategy;
+        setTag(GameConstants.BRICK_TAG);
     }
 
     @Override
@@ -29,10 +29,6 @@ public class Brick extends GameObject {
             return false;
         }
         return super.shouldCollideWith(other);
-    }
-
-    public String getTag() {
-        return TAG;
     }
 }
 

@@ -10,15 +10,11 @@ import danogl.util.Vector2;
 
 public class ExtraPaddle extends Paddle {
 
-    private Counter collisionCounter = new Counter(0);
+    private final Counter collisionCounter = new Counter(0);
     public ExtraPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                        BrickerGameManager gameManager, Vector2 rangeOfMovement) {
         super(topLeftCorner, dimensions, renderable, gameManager, rangeOfMovement);
-    }
-
-    @Override
-    public String getTag() {
-        return GameConstants.EXTRA_PADDLE_TAG;
+        setTag(GameConstants.EXTRA_PADDLE_TAG);
     }
 
     @Override

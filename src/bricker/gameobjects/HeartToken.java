@@ -7,11 +7,11 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class HeartToken extends Heart{
-    private static final String TAG = GameConstants.HEART_TOKEN_TAG;
 
     public HeartToken(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                  BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable, gameManager);
+        setTag(GameConstants.HEART_TOKEN_TAG);
     }
 
     @Override
@@ -21,9 +21,5 @@ public class HeartToken extends Heart{
 
     public void removeSelf() {
         getGameManager().removeObjectFromRender(this, GameConstants.HEART_TOKEN_LAYER);
-    }
-
-    public String getTag() {
-        return TAG;
     }
 }

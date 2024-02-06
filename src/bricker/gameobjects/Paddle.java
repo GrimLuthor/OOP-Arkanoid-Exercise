@@ -11,8 +11,6 @@ import java.awt.event.KeyEvent;
 
 public class Paddle extends GameObject {
 
-    private static final String TAG = GameConstants.PADDLE_TAG;
-
     private static final float MOVEMENT_SPEED = GameConstants.PADDLE_SPEED;
 
     private final BrickerGameManager gameManager;
@@ -23,6 +21,7 @@ public class Paddle extends GameObject {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
         this.rangeOfMovement = rangeOfMovement;
+        setTag(GameConstants.PADDLE_TAG);
     }
 
     @Override
@@ -55,10 +54,6 @@ public class Paddle extends GameObject {
         if (getTopLeftCorner().x() > rangeOfMovement.y() - getDimensions().x()) {
             setTopLeftCorner(new Vector2(rangeOfMovement.y() - getDimensions().x(), getTopLeftCorner().y()));
         }
-    }
-
-    public String getTag() {
-        return TAG;
     }
 
     public BrickerGameManager getGameManager() {

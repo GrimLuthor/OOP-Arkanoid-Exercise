@@ -9,7 +9,6 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class Ball extends GameObject {
-    private static final String TAG = GameConstants.BALL_TAG;
     private int collisionCounter = 0;
     private final Sound collisionSound;
     private final BrickerGameManager gameManager;
@@ -20,18 +19,23 @@ public class Ball extends GameObject {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
         this.collisionSound = collisionSound;
+        setTag(GameConstants.BALL_TAG);
+    }
 
+    @Override
+    public boolean shouldCollideWith(GameObject other) {
+        return super.shouldCollideWith(other) || other.getTag().equals(GameConstants.PUCK_TAG);
     }
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-        super.onCollisionEnter(other, collision);
-
+        System.out.println(other.getTag());
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
         collisionSound.play();
         collisionCounter++;
     }
+
 
     @Override
     public void update(float deltaTime) {
@@ -45,7 +49,4 @@ public class Ball extends GameObject {
         return collisionCounter;
     }
 
-    public String getTag() {
-        return TAG;
-    }
 }

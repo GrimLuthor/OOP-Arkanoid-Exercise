@@ -8,14 +8,13 @@ import danogl.util.Vector2;
 
 public class Heart extends GameObject {
 
-    private static final String TAG = GameConstants.HEART_TAG;
-
     private final BrickerGameManager gameManager;
 
     public Heart(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                  BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
         this.gameManager = gameManager;
+        setTag(GameConstants.HEART_TAG);
     }
 
     public void removeSelf() {
@@ -24,8 +23,5 @@ public class Heart extends GameObject {
 
     public BrickerGameManager getGameManager() {
         return gameManager;
-    }
-    public String getTag() {
-        return TAG;
     }
 }

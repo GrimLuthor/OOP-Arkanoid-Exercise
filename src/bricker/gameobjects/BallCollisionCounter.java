@@ -8,7 +8,7 @@ import danogl.util.Vector2;
 public class BallCollisionCounter extends GameObject {
     private final BrickerGameManager gameManager;
     private final Ball ball;
-    private int baseCollisions;
+    private final int baseCollisions;
 
     public BallCollisionCounter(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                                 BrickerGameManager gameManager, Ball ball) {

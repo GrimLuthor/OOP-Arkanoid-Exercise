@@ -11,12 +11,10 @@ import danogl.util.Vector2;
 
 public class LivesBar extends GameObject {
 
-    private static final String TAG = GameConstants.LIVES_BAR_TAG;
-
     private int livesCount = 0;
-    private Heart[] hearts;
+    private final Heart[] hearts;
 
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     public LivesBar(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, int lives,
                     BrickerGameManager gameManager) {
@@ -28,6 +26,7 @@ public class LivesBar extends GameObject {
         for (int i = 0; i < lives; i++) {
             addLife();
         }
+        setTag(GameConstants.LIVES_BAR_TAG);
     }
 
     public void addLife() {
@@ -52,9 +51,5 @@ public class LivesBar extends GameObject {
 
     public int getLivesCount() {
         return this.livesCount;
-    }
-
-    public String getTag() {
-        return TAG;
     }
 }
