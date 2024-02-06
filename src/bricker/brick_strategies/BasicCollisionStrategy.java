@@ -4,10 +4,9 @@ package bricker.brick_strategies;
 import bricker.constants.GameConstants;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
-import danogl.util.Counter;
 
 public class BasicCollisionStrategy implements CollisionStrategy {
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     public BasicCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;

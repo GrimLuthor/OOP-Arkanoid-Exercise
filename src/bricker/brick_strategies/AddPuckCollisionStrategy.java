@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class AddPuckCollisionStrategy implements CollisionStrategy {
 
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     public AddPuckCollisionStrategy (BrickerGameManager gameManager) {
         this.gameManager = gameManager;
@@ -26,10 +26,13 @@ public class AddPuckCollisionStrategy implements CollisionStrategy {
 
         System.out.println("add puck");
 
-        Vector2 puckDims = new Vector2(GameConstants.BALL_SIZE,GameConstants.BALL_SIZE).mult(GameConstants.BALL_PUCK_RATIO);
+        Vector2 puckDims = new Vector2(GameConstants.BALL_SIZE,GameConstants.BALL_SIZE)
+                .mult(GameConstants.BALL_PUCK_RATIO);
         Vector2 puckPos = new Vector2(gameObject1.getCenter().subtract(puckDims.mult(0.5f)));
-        ImageRenderable puckImage = gameManager.getImageReader().readImage(GameConstants.PUCK_IMAGE_PATH,true);
+        ImageRenderable puckImage = gameManager.getImageReader().readImage(
+                GameConstants.PUCK_IMAGE_PATH,true);
         Sound collisionSound = gameManager.getSoundReader().readSound(GameConstants.BALL_IMPACT_SOUND_PATH);
+
         Random random = new Random();
         for (int i = 0; i < GameConstants.PUCK_AMOUNT; i++) {
             double angle = random.nextDouble() * Math.PI;

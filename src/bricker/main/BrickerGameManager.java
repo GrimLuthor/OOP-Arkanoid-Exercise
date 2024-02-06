@@ -23,8 +23,6 @@ public class BrickerGameManager extends GameManager {
 
     private Ball ball;
     private Vector2 windowDimensions;
-
-
     private Vector2 brickParams;
 
     private Counter bricksCounter;
@@ -34,7 +32,6 @@ public class BrickerGameManager extends GameManager {
     private ImageReader imageReader;
     private UserInputListener inputListener;
     private WindowController windowController;
-
 
     private LivesBar livesBar;
     private GameObject livesCounter;
@@ -75,6 +72,10 @@ public class BrickerGameManager extends GameManager {
         return bricksCounter;
     }
 
+    public LivesBar getLivesBar() {
+        return livesBar;
+    }
+
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader,
                                UserInputListener inputListener, WindowController windowController) {
@@ -113,15 +114,17 @@ public class BrickerGameManager extends GameManager {
     }
 
     private void initPaddle() {
-        ImageRenderable paddleImage = imageReader.readImage(GameConstants.PADDLE_IMAGE_PATH, true);
-        Paddle paddle = new Paddle(Vector2.ZERO, new Vector2(100, 15), paddleImage, inputListener,
-                new Vector2(0, windowDimensions.x()));
+        ImageRenderable paddleImage = imageReader.readImage(
+                GameConstants.PADDLE_IMAGE_PATH, true);
+        Paddle paddle = new Paddle(Vector2.ZERO, GameConstants.PADDLE_SIZE, paddleImage, this,
+                Vector2.DOWN.mult(windowDimensions.x()));
         paddle.setCenter(new Vector2(windowDimensions.x() / 2, windowDimensions.y() - 30));
         addObjectToRender(paddle);
     }
 
     private void initBackground() {
-        ImageRenderable backgroundImage = imageReader.readImage(GameConstants.BACKGROUND_IMAGE_PATH, false);
+        ImageRenderable backgroundImage = imageReader.readImage(
+                GameConstants.BACKGROUND_IMAGE_PATH, false);
         GameObject background = new GameObject(Vector2.ZERO, windowDimensions, backgroundImage);
         background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         addObjectToRender(background, GameConstants.BACKGROUND_IMAGE_LAYER);
@@ -140,19 +143,15 @@ public class BrickerGameManager extends GameManager {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        float ballHeight = ball.getCenter().y();
         String prompt = "";
-        if (ballHeight > windowDimensions.y()) {
+        float ballHeight = ball.getCenter().y();
+        boolean decrease = ballHeight > windowDimensions.y();
+        boolean isOver = updateLivesBar(decrease, false);
 
-            livesBar.removeLife();
-            updateLivesCounter();
-
-            if (livesBar.getLivesCount() == 0) {
-                prompt += "You lose! Play again?"; //extract to constants?
-            } else {
-                initBall();
-            }
+        if (isOver) {
+            prompt += "You lose! Play again?";
         }
+
         if (bricksCounter.value() == 0 || inputListener.isKeyPressed(KeyEvent.VK_W)) {
             prompt += "You win! Play again?";
         }
@@ -165,6 +164,26 @@ public class BrickerGameManager extends GameManager {
         }
     }
 
+    public boolean updateLivesBar(boolean decrease, boolean increase) {
+        if (decrease) {
+            float ballHeight = ball.getCenter().y();
+            if (ballHeight > windowDimensions.y()) {
+                livesBar.removeLife();
+                updateLivesCounter();
+
+                if (livesBar.getLivesCount() == 0) {
+                    return true; // return true if no lives left
+                } else {
+                    initBall();
+                }
+            }
+        }
+        else if (increase){
+            livesBar.addLife();
+            updateLivesCounter();
+        }
+        return false;
+    }
     private void updateLivesCounter() {
         if (livesBar.getLivesCount() >= 3) {
             livesCounterLabel.setColor(Color.GREEN);

@@ -1,5 +1,7 @@
 package bricker.constants;
 
+import danogl.util.Vector2;
+
 public class GameConstants {
     // Names:
     public static final String TITLE_NAME = "Bricker";
@@ -7,13 +9,17 @@ public class GameConstants {
     // Game Variables:
     public static final int MAX_LIVES = 4;
     public static final float BALL_SPEED = 150;
+    public static final float HEART_SPEED = 100;
+    public static final float PADDLE_SPEED = 250;
+    public static final Vector2 PADDLE_SIZE = new Vector2(100, 15);
+    public static final int PUCK_AMOUNT = 2;
+    public static final int COLLISIONS_TO_REMOVE_EXTRA_PADDLE = 3;
 
     // Object Layers:
     public static final int BACKGROUND_IMAGE_LAYER = -200;
     public static final int HEART_LAYER = 200;
     public static final int BRICK_LAYER = 1;
     public static final int BALL_LAYER = 2;
-
 
     // Texture Paths:
     public static final String HEART_IMAGE_PATH = "assets/heart.png";
@@ -26,10 +32,8 @@ public class GameConstants {
     // Placing Params:
     public static final float GAP_BETWEEN_HEARTS = 10;
     public static final float HEART_SIZE = 25;
-
     public static final int BALL_SIZE = 20;
     public static final float BALL_PUCK_RATIO = 0.75f;
-
     public static final float GAP_BETWEEN_BRICKS = 3;
 
     // Sound Paths:
@@ -42,6 +46,6 @@ public class GameConstants {
     public static final String LIVES_BAR_TAG = "LivesBar";
     public static final String PADDLE_TAG = "Paddle";
     public static final String PUCK_TAG = "Puckus Maximus";
-    public static final int PUCK_AMOUNT = 2;
+    public static final String EXTRA_PADDLE_TAG = "Extrus Paddleus";
 }
 

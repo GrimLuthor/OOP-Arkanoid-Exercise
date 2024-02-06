@@ -1,12 +1,15 @@
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
+import bricker.gameobjects.ExtraPaddle;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
+import danogl.gui.rendering.ImageRenderable;
+import danogl.util.Vector2;
 
 public class AddDiskCollisionStrategy implements CollisionStrategy {
 
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     public AddDiskCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
@@ -14,7 +17,20 @@ public class AddDiskCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
-        System.out.println("add disk");
+
+        if (true) {
+            System.out.println("add disk");
+
+            Vector2 exPaddlePos = new Vector2(gameManager.getWindowDimensions().mult(0.5f).subtract(
+                    GameConstants.PADDLE_SIZE.mult(0.5f)));
+            ImageRenderable exPaddleImage = gameManager.getImageReader().readImage(
+                    GameConstants.PADDLE_IMAGE_PATH, true);
+
+            ExtraPaddle extraPaddle = new ExtraPaddle(exPaddlePos, GameConstants.PADDLE_SIZE, exPaddleImage,
+                    gameManager, Vector2.DOWN.mult(gameManager.getWindowDimensions().x()));
+
+            gameManager.addObjectToRender(extraPaddle);
+        }
         gameManager.getBricksCounter().decrement();
         gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
     }

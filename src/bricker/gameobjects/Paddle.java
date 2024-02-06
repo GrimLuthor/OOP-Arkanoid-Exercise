@@ -1,6 +1,7 @@
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
+import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.gui.UserInputListener;
@@ -13,18 +14,27 @@ public class Paddle extends GameObject {
 
     private static final String TAG = GameConstants.PADDLE_TAG;
 
-    private static final float MOVEMENT_SPEED = 250;
-    private UserInputListener inputListener;
-    private Vector2 rangeOfMovement;
+    private static final float MOVEMENT_SPEED = GameConstants.PADDLE_SPEED;
 
-    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, UserInputListener inputListener, Vector2 rangeOfMovement) {
+    private final BrickerGameManager gameManager;
+    private final Vector2 rangeOfMovement;
+
+    public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
+                  BrickerGameManager gameManager, Vector2 rangeOfMovement) {
         super(topLeftCorner, dimensions, renderable);
-        this.inputListener = inputListener;
+        this.gameManager = gameManager;
         this.rangeOfMovement = rangeOfMovement;
     }
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
+        if (other.getTag().equals(GameConstants.HEART_TAG) && getTag().equals(GameConstants.PADDLE_TAG)) {
+            Heart heart = (Heart) other;
+            heart.removeSelf(); // where should we remove it?
+            if (gameManager.getLivesBar().getLivesCount() < GameConstants.MAX_LIVES) {
+                gameManager.updateLivesBar(false, true);
+            }
+        }
         super.onCollisionEnter(other, collision);
     }
 
@@ -34,10 +44,10 @@ public class Paddle extends GameObject {
 
         Vector2 movementDirection = Vector2.ZERO;
 
-        if (inputListener.isKeyPressed(KeyEvent.VK_LEFT)) {
+        if (gameManager.getInputListener().isKeyPressed(KeyEvent.VK_LEFT)) {
             movementDirection = movementDirection.add(Vector2.LEFT.mult(MOVEMENT_SPEED));
         }
-        if (inputListener.isKeyPressed(KeyEvent.VK_RIGHT)) {
+        if (gameManager.getInputListener().isKeyPressed(KeyEvent.VK_RIGHT)) {
             movementDirection = movementDirection.add(Vector2.RIGHT.mult(MOVEMENT_SPEED));
         }
         setVelocity(movementDirection);
@@ -52,5 +62,9 @@ public class Paddle extends GameObject {
 
     public String getTag() {
         return TAG;
+    }
+
+    public BrickerGameManager getGameManager() {
+        return gameManager;
     }
 }

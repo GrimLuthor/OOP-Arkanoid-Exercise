@@ -11,8 +11,8 @@ import danogl.util.Vector2;
 public class Ball extends GameObject {
     private static final String TAG = GameConstants.BALL_TAG;
     private int collisionCounter = 0;
-    private Sound collisionSound;
-    private BrickerGameManager gameManager;
+    private final Sound collisionSound;
+    private final BrickerGameManager gameManager;
 
 
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound ,
