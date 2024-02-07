@@ -274,7 +274,7 @@ public class BrickerGameManager extends GameManager {
             for (int col = 0; col < brickParams.y(); col++) {
 
                 CollisionStrategy collisionStrategy = collisionStrategyFactory.generateStrategy(this,
-                        random.nextInt(10));
+                        4);
 
                 Brick newBrick = new Brick(new Vector2(topLeftX, topLeftY),
                         new Vector2(brickWidth, brickHeight), brickImage, collisionStrategy);

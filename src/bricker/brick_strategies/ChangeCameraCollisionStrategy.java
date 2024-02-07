@@ -28,7 +28,7 @@ public class ChangeCameraCollisionStrategy implements CollisionStrategy {
             gameManager.addObjectToRender(ballCollisionCounter);
         }
         else {
-            System.out.println("basic");
+            System.out.println("camera - basic");
         }
         gameManager.getBricksCounter().decrement();
         gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
