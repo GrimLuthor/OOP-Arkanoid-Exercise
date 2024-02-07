@@ -2,7 +2,7 @@ package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
 import bricker.gameobjects.Ball;
-import bricker.gameobjects.BallCollisionCounter;
+import bricker.gameobjects.CameraReverter;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.util.Vector2;
@@ -19,18 +19,12 @@ public class ChangeCameraCollisionStrategy implements CollisionStrategy {
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
 
         if (gameObject2.getTag().equals(GameConstants.BALL_TAG) && gameManager.camera() == null) {
-            System.out.println("camera");
-
             gameManager.setCameraToFollowBall();
+            CameraReverter cameraReverter = new CameraReverter(Vector2.ZERO, Vector2.ZERO,
+                    null, gameManager, (Ball) gameObject2);
 
-            BallCollisionCounter ballCollisionCounter = new BallCollisionCounter(Vector2.ZERO,Vector2.ZERO,
-                    null,gameManager, (Ball) gameObject2);
-            gameManager.addObjectToRender(ballCollisionCounter);
+            gameManager.addObjectToRender(cameraReverter);
         }
-        else {
-            System.out.println("camera - basic");
-        }
-        gameManager.getBricksCounter().decrement();
-        gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
+        removeBrick(gameManager, gameObject1);
     }
 }

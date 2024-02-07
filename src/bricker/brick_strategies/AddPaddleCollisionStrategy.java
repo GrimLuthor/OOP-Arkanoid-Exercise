@@ -19,8 +19,6 @@ public class AddPaddleCollisionStrategy implements CollisionStrategy {
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
 
         if (gameManager.getExtraPaddle() == null) {
-            System.out.println("add paddle");
-
             Vector2 exPaddlePos = new Vector2(gameManager.getWindowDimensions().mult(0.5f).subtract(
                     GameConstants.PADDLE_SIZE.mult(0.5f)));
             ImageRenderable exPaddleImage = gameManager.getImageReader().readImage(
@@ -29,12 +27,9 @@ public class AddPaddleCollisionStrategy implements CollisionStrategy {
             ExtraPaddle extraPaddle = new ExtraPaddle(exPaddlePos, GameConstants.PADDLE_SIZE, exPaddleImage,
                     gameManager, Vector2.DOWN.mult(gameManager.getWindowDimensions().x()));
 
-            gameManager.addObjectToRender(extraPaddle,GameConstants.EXTRA_PADDLE_LAYER);
+            gameManager.addObjectToRender(extraPaddle, GameConstants.EXTRA_PADDLE_LAYER);
             gameManager.setExtraPaddle(extraPaddle);
-        } else {
-            System.out.println("paddle - basic");
         }
-        gameManager.getBricksCounter().decrement();
-        gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
+        removeBrick(gameManager, gameObject1);
     }
 }

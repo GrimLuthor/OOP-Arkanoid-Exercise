@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 public class Paddle extends GameObject {
 
     private static final float MOVEMENT_SPEED = GameConstants.PADDLE_SPEED;
-
     private final BrickerGameManager gameManager;
     private final Vector2 rangeOfMovement;
 
@@ -29,7 +28,6 @@ public class Paddle extends GameObject {
         if (other.getTag().equals(GameConstants.HEART_TOKEN_TAG)) {
             gameManager.removeObjectFromRender(other, GameConstants.HEART_TOKEN_LAYER);
             gameManager.increaseLives();
-
         }
         super.onCollisionEnter(other, collision);
     }
@@ -52,7 +50,8 @@ public class Paddle extends GameObject {
             setTopLeftCorner(new Vector2(rangeOfMovement.x(), getTopLeftCorner().y()));
         }
         if (getTopLeftCorner().x() > rangeOfMovement.y() - getDimensions().x()) {
-            setTopLeftCorner(new Vector2(rangeOfMovement.y() - getDimensions().x(), getTopLeftCorner().y()));
+            setTopLeftCorner(
+                    new Vector2(rangeOfMovement.y() - getDimensions().x(), getTopLeftCorner().y()));
         }
     }
 

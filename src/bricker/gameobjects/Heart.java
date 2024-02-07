@@ -20,8 +20,4 @@ public class Heart extends GameObject {
     public void removeSelf() {
         gameManager.removeObjectFromRender(this, GameConstants.HEART_LAYER);
     }
-
-    public BrickerGameManager getGameManager() {
-        return gameManager;
-    }
 }

@@ -10,7 +10,8 @@ import danogl.util.Vector2;
 
 public class ExtraPaddle extends Paddle {
 
-    private final Counter collisionCounter = new Counter(0);
+    private final Counter collisionCounter = new Counter();
+
     public ExtraPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                        BrickerGameManager gameManager, Vector2 rangeOfMovement) {
         super(topLeftCorner, dimensions, renderable, gameManager, rangeOfMovement);
@@ -25,10 +26,5 @@ public class ExtraPaddle extends Paddle {
             getGameManager().removeObjectFromRender(this, GameConstants.EXTRA_PADDLE_LAYER);
             getGameManager().setExtraPaddle(null);
         }
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
     }
 }

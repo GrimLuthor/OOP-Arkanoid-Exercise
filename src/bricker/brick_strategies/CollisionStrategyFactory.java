@@ -3,7 +3,8 @@ package bricker.brick_strategies;
 import bricker.main.BrickerGameManager;
 
 public class CollisionStrategyFactory {
-    public CollisionStrategyFactory () {}
+    public CollisionStrategyFactory() {
+    }
 
     public CollisionStrategy generateStrategy(BrickerGameManager gameManager, int randomNum) {
         return switch (randomNum) {

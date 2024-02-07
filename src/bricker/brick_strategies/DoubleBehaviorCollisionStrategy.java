@@ -1,6 +1,5 @@
 package bricker.brick_strategies;
 
-import bricker.constants.GameConstants;
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 
@@ -8,7 +7,7 @@ import java.util.Random;
 
 public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
 
-    private BrickerGameManager gameManager;
+    private final BrickerGameManager gameManager;
 
     public DoubleBehaviorCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
@@ -16,7 +15,6 @@ public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
-
 
         CollisionStrategyFactory collisionStrategyFactory = new CollisionStrategyFactory();
         Random random = new Random();
@@ -27,18 +25,11 @@ public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
             numberOfBehaviors = random.nextInt(5) == 4 ? 3 : 2;
         }
 
-        System.out.println("double behavior: " + numberOfBehaviors + " behaviors");
-
         for (int i = 0; i < numberOfBehaviors; i++) {
             gameManager.getBricksCounter().increment(); // negating the decrement in other behavior
-
-            System.out.print(" - ");
             collisionStrategyFactory.generateStrategy(gameManager,
-                    random.nextInt(4)).onCollision(gameObject1,gameObject2);
+                    random.nextInt(4)).onCollision(gameObject1, gameObject2);
         }
-
-
-        gameManager.getBricksCounter().decrement();
-        gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
+        removeBrick(gameManager, gameObject1);
     }
 }
