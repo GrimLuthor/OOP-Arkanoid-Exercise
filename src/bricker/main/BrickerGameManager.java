@@ -91,7 +91,7 @@ public class BrickerGameManager extends GameManager {
         Paddle paddle = new Paddle(Vector2.ZERO, GameConstants.PADDLE_SIZE, paddleImage, this,
                 Vector2.DOWN.mult(windowDimensions.x()));
         paddle.setCenter(new Vector2(windowDimensions.x() / 2,
-                windowDimensions.y() - GameConstants.GAP_BETWEEN_PADDLE_BOTTOM));
+                windowDimensions.y() - GameConstants.PADDLE_BOTTOM_PADDING));
         addObjectToRender(paddle, GameConstants.PADDLE_LAYER);
     }
 
@@ -109,7 +109,8 @@ public class BrickerGameManager extends GameManager {
         livesCounterLabel = new TextRenderable("" + livesBar.getLivesCount());
         livesCounterLabel.setColor(Color.GREEN);
         GameObject livesCounter = new GameObject(new Vector2(
-                windowDimensions.x() - GameConstants.GAP_LIVES_BAR, GameConstants.GAP_LIVES_BAR),
+                windowDimensions.x() - GameConstants.LIVES_COUNT_X_OFFSET,
+                GameConstants.LIVES_COUNT_PADDING_UP),
                 Vector2.ONES.mult(GameConstants.LIVES_BAR_SIZE), livesCounterLabel);
         addObjectToRender(livesCounter, GameConstants.HEART_LAYER);
     }
@@ -154,26 +155,20 @@ public class BrickerGameManager extends GameManager {
 
     private void updateLivesCounter() {
         switch (livesBar.getLivesCount()) {
-            case 2:
-                livesCounterLabel.setColor(Color.YELLOW);
-                break;
-            case 1:
-                livesCounterLabel.setColor(Color.RED);
-                break;
-            default:
-                livesCounterLabel.setColor(Color.GREEN);
-                break;
+            case 2 -> livesCounterLabel.setColor(Color.YELLOW);
+            case 1 -> livesCounterLabel.setColor(Color.RED);
+            default -> livesCounterLabel.setColor(Color.GREEN);
         }
         livesCounterLabel.setString("" + livesBar.getLivesCount());
     }
 
     private void initWalls() {
         GameObject ceiling = new GameObject(Vector2.UP.mult(GameConstants.WALL_SIZE),
-                new Vector2(windowDimensions.x(), GameConstants.WALL_SIZE), null);
+                new Vector2(windowDimensions.x(), GameConstants.WALL_SIZE), GameConstants.WALL_RENDER);
         GameObject leftWall = new GameObject(Vector2.LEFT.mult(GameConstants.WALL_SIZE),
-                new Vector2(GameConstants.WALL_SIZE, windowDimensions.y()), null);
+                new Vector2(GameConstants.WALL_SIZE, windowDimensions.y()), GameConstants.WALL_RENDER);
         GameObject rightWall = new GameObject(Vector2.RIGHT.mult(windowDimensions.x()),
-                new Vector2(GameConstants.WALL_SIZE, windowDimensions.y()), null);
+                new Vector2(GameConstants.WALL_SIZE, windowDimensions.y()), GameConstants.WALL_RENDER);
 
         addObjectToRender(ceiling);
         addObjectToRender(rightWall);
@@ -219,7 +214,7 @@ public class BrickerGameManager extends GameManager {
                 topLeft = topLeft.add(new Vector2(brickWidth + GameConstants.GAP_BETWEEN_BRICKS, 0));
             }
             topLeft = new Vector2(GameConstants.GAP_BETWEEN_BRICKS,
-            topLeft.y() + brickHeight + GameConstants.GAP_BETWEEN_BRICKS);
+                    topLeft.y() + brickHeight + GameConstants.GAP_BETWEEN_BRICKS);
         }
     }
 
@@ -284,7 +279,7 @@ public class BrickerGameManager extends GameManager {
 
     public static void main(String[] args) {
         BrickerGameManager gameManager;
-        if (args.length == GameConstants.ARGS_AMOUNT) {
+        if (args.length == GameConstants.EXPECTED_ARGS_AMOUNT) {
             gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE,
                     new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
 

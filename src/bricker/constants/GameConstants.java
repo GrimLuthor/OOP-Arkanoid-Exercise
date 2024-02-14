@@ -1,6 +1,9 @@
 package bricker.constants;
 
+import danogl.gui.rendering.RectangleRenderable;
 import danogl.util.Vector2;
+
+import java.awt.*;
 
 public class GameConstants {
     // Names:
@@ -15,9 +18,12 @@ public class GameConstants {
     public static final int PUCK_AMOUNT = 2;
     public static final int COLLISIONS_TO_REMOVE_EXTRA_PADDLE = 3;
     public static final int COLLISIONS_TO_REVERT_CAMERA = 4;
-    public static final int STRATEGY_RANDOM_CAP = 10;
-    public static final int ARGS_AMOUNT = 2;
     public static final Vector2 DEFAULT_BRICKS_AMOUNT = new Vector2(7, 8);
+
+    // Architecture Params
+    public static final int STRATEGY_RANDOM_CAP = 10;
+    public static final int EXPECTED_ARGS_AMOUNT = 2;
+
 
     // Object Layers:
     public static final int BACKGROUND_IMAGE_LAYER = -69;
@@ -36,14 +42,20 @@ public class GameConstants {
     public static final String PADDLE_IMAGE_PATH = "assets/paddle.png";
     public static final String PUCK_IMAGE_PATH = "assets/mockBall.png";
 
+    // Texture Optionals:
+    public static final Color WALL_COLOR = Color.BLUE;
+//    public static final RectangleRenderable WALL_RENDER = null;
+    public static final RectangleRenderable WALL_RENDER = new RectangleRenderable(WALL_COLOR);
+
     // Placing Params:
     public static final float BALL_SIZE = 20;
     public static final float BALL_PUCK_RATIO = 0.75f;
     public static final float HEART_SIZE = 25;
     public static final float GAP_BETWEEN_HEARTS = 10;
     public static final float GAP_BETWEEN_BRICKS = 3;
-    public static final float GAP_BETWEEN_PADDLE_BOTTOM = 30;
-    public static final float GAP_LIVES_BAR = 25;
+    public static final float PADDLE_BOTTOM_PADDING = 30;
+    public static final float LIVES_COUNT_X_OFFSET = 25;
+    public static final float LIVES_COUNT_PADDING_UP = 3;
     public static final float LIVES_BAR_SIZE = 20;
     public static final float WALL_SIZE = 6.9f;
     public static final float BRICKS_HEIGHT = 15;
