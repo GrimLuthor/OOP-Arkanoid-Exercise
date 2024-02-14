@@ -44,7 +44,7 @@ public class GameConstants {
 
     // Texture Optionals:
     public static final Color WALL_COLOR = Color.BLUE;
-//    public static final RectangleRenderable WALL_RENDER = null;
+    // public static final RectangleRenderable WALL_RENDER = null;
     public static final RectangleRenderable WALL_RENDER = new RectangleRenderable(WALL_COLOR);
 
     // Placing Params:

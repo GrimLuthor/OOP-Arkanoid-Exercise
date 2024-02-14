@@ -1,0 +1,16 @@
+grim_daniel, noam_navon
+332559202, 214668048
+
+1. When implementing the elimination of bricks we chose to send the instance of our gameManager to the
+brickCollisionStrategy. The advantages are: ___. The disadvantages are: ___.
+2. In the implementation, we created the 'LivesBar' class to manage graphical representation of player's lives
+using heart objects from 'Heart' class, and the numerical representation is managed using the 'TextRenderable'
+class. The BrickerGameManager class orchestrates these elements, updating them based on changes in player's
+lives count and handling logic for increasing and decreasing lives.
+3. To implement the special behaviors, we utilized specific collision strategies tailored to each. The
+AddPaddleCollisionStrategy class creates an extra paddle object from 'ExtraPaddle' class.
+Similarly, the AddHeartCollisionStrategy class generates a heart token object from 'HeartToken' class that
+upon impact with the paddle gains the player an extra life. The AddPuckCollisionStrategy class creates
+multiple pucks objects from 'Puck' class. And the ChangeCameraCollisionStrategy class dynamically adjusts the
+camera behavior, and uses an object from 'CameraReverter' class to determine when to change the camera back to
+normal.

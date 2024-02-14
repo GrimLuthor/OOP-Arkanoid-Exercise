@@ -1,3 +1,8 @@
+/**
+ * Och aye, laddies and lassies! Welcome tae the ChangeCameraCollisionStrategy class. This strategy here's
+ * as bonnie as the Highlands, changin' the camera's focus when there's a collision with a ball. It's all
+ * aboot givin' the players a view worth a wee dram o' whisky, ya ken?
+ */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -11,6 +16,12 @@ public class ChangeCameraCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;
 
+    /**
+     * Och aye, mateys! This here constructor sets up the ChangeCameraCollisionStrategy, makin' sure we're
+     * ready tae switch the camera focus when there's a collision in the game.
+     *
+     * @param gameManager The game manager, keepin' things in order and runnin' smoothly.
+     */
     public ChangeCameraCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }

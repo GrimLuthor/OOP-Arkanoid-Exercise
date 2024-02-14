@@ -1,3 +1,7 @@
+/**
+ * Yo, check it! Dis right here be the ExtraPaddle class, representin' an extra paddle in da Bricker game.
+ * It be like a regular paddle, but wit' some extra spice, ya feel me?
+ */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -12,6 +16,16 @@ public class ExtraPaddle extends Paddle {
 
     private final Counter collisionCounter = new Counter();
 
+    /**
+     * Ayo, listen up! Dis be the constructor fo' the ExtraPaddle class. It creates a dope extra paddle
+     * wit' da given parameters, ready to rock 'n' roll in da game.
+     *
+     * @param topLeftCorner    Da top-left corner where dis fly paddle gon' start.
+     * @param dimensions       Da size 'n' dimensions of dis bad boy.
+     * @param renderable       Da visual representation, makin' dis paddle look fresh.
+     * @param gameManager      Da game manager, keepin' things in check in da game world.
+     * @param rangeOfMovement  Da range of movement fo' dis paddle, keepin' it in bounds.
+     */
     public ExtraPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                        BrickerGameManager gameManager, Vector2 rangeOfMovement) {
         super(topLeftCorner, dimensions, renderable, gameManager, rangeOfMovement);

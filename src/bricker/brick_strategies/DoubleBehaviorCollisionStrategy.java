@@ -1,3 +1,8 @@
+/**
+ * Alright, mates! Welcome to the DoubleBehaviorCollisionStrategy class. This strategy is a bit of a
+ * cheeky one, mixin' up multiple behaviors when there's a collision in the Bricker game. It's like
+ * havin' a proper cuppa with a slice of Victoria sponge cake - double the pleasure, innit?
+ */
 package bricker.brick_strategies;
 
 import bricker.main.BrickerGameManager;
@@ -9,6 +14,12 @@ public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;
 
+    /**
+     * Oi, guv'nor! This 'ere constructor sets up the DoubleBehaviorCollisionStrategy, makin' sure
+     * we're ready to shake things up when there's a collision in the game.
+     *
+     * @param gameManager The game manager, keepin' things in order and runnin' smoothly.
+     */
     public DoubleBehaviorCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }

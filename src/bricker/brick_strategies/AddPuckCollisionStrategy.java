@@ -1,3 +1,8 @@
+/**
+ * Howdy, y'all! Welcome to the AddPuckCollisionStrategy class. This strategy right here is as wild
+ * as a Texas tornado, addin' a whole mess of pucks to the game when there's a collision. It's all 'bout
+ * mixin' things up and keepin' folks on their toes, ain't it?
+ */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -14,6 +19,12 @@ public class AddPuckCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;
 
+    /**
+     * Howdy, folks! This here constructor sets up the AddPuckCollisionStrategy, makin' sure we're
+     * ready to unleash the fury of them pucks in the game.
+     *
+     * @param gameManager The game manager, keepin' things in check on the ol' dusty trail.
+     */
     public AddPuckCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }
@@ -37,6 +48,13 @@ public class AddPuckCollisionStrategy implements CollisionStrategy {
         removeBrick(gameManager, gameObject1);
     }
 
+    /**
+     * Yeehaw! This little method right here randomizes the angle of them pucks, keepin' things spicy
+     * on the ol' dusty trail.
+     *
+     * @param random The random number generator, helpin' us stir things up.
+     * @return A vector representin' the randomized angle.
+     */
     private Vector2 randomizeAngle(Random random) {
         double randomAngle = random.nextDouble() * Math.PI;
         float VelX = (float) Math.cos(randomAngle);

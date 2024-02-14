@@ -1,3 +1,8 @@
+/**
+ * Ay up, mates! Welcome to the AddPaddleCollisionStrategy class. This 'ere strategy is a right treat,
+ * addin' an extra paddle to the game when there's a collision. It's all about givin' the players a bit
+ * more oomph on the ol' paddle, ain't it?
+ */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -11,6 +16,12 @@ public class AddPaddleCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;
 
+    /**
+     * Alright, guv'nor! This 'ere constructor sets up the AddPaddleCollisionStrategy, makin' sure we're
+     * ready to give 'em an extra paddle in the game.
+     *
+     * @param gameManager The game manager, keepin' things in check on the streets.
+     */
     public AddPaddleCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }

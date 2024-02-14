@@ -1,3 +1,7 @@
+/**
+ * A'richt, lads 'n' lasses! Welcome tae the Paddle class. This wee class represents a paddle object
+ * in the Bricker game. It's aw aboot keepin' yersel' in control o' the game, ken?
+ */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -15,6 +19,16 @@ public class Paddle extends GameObject {
     private final BrickerGameManager gameManager;
     private final Vector2 rangeOfMovement;
 
+    /**
+     * A'richt, listen up! This here constructor sets up the Paddle, givin' it the tools it needs tae
+     * keep things in check in the game.
+     *
+     * @param topLeftCorner    The startin' point o' this paddle, guidin' it along its path.
+     * @param dimensions       The size 'n' shape o' the paddle, keepin' it in line.
+     * @param renderable       The visual representation, makin' sure the paddle looks the part.
+     * @param gameManager      The game manager, keepin' tabs on everything in the game.
+     * @param rangeOfMovement  The range o' movement for the paddle, keepin' it from wanderin' too far.
+     */
     public Paddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable,
                   BrickerGameManager gameManager, Vector2 rangeOfMovement) {
         super(topLeftCorner, dimensions, renderable);
@@ -55,6 +69,11 @@ public class Paddle extends GameObject {
         }
     }
 
+    /**
+     * A'richt, pal! This method gets the game manager, helpin' keep things runnin' smoothly in the game.
+     *
+     * @return The game manager for this paddle.
+     */
     public BrickerGameManager getGameManager() {
         return gameManager;
     }

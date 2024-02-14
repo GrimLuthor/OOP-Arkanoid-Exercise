@@ -1,3 +1,7 @@
+/**
+ * Dis be de Ball class, representing a ball object inside de Bricker game.
+ * De Ball be movin' an' collidin' within de game world.
+ */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -14,7 +18,15 @@ public class Ball extends GameObject {
     private final Sound collisionSound;
     private final BrickerGameManager gameManager;
 
-
+    /**
+     * Creates a new Ball object wit' de specified parameters.
+     *
+     * @param topLeftCorner   De position of de top-left corner of de ball.
+     * @param dimensions      De dimensions (size) of de ball.
+     * @param renderable      De renderable object representin' de ball's appearance.
+     * @param collisionSound  De sound to play when de ball collides.
+     * @param gameManager     De game manager for managing de ball within de game.
+     */
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound,
                 BrickerGameManager gameManager) {
         super(topLeftCorner, dimensions, renderable);
@@ -44,6 +56,11 @@ public class Ball extends GameObject {
         }
     }
 
+    /**
+     * Gets de number of collisions dat de ball has undergone.
+     *
+     * @return De number of collisions.
+     */
     public int getCollisionCounter() {
         return collisionCounter.value();
     }

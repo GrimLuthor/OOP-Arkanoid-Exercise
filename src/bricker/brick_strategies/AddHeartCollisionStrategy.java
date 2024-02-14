@@ -1,3 +1,8 @@
+/**
+ * Howdy, y'all! Welcome to the AddHeartCollisionStrategy class. This here strategy is as true as grits,
+ * addin' a heart token to the game when a collision occurs. It's all 'bout spreadin' some lovin' on them
+ * dusty old bricks in the Bricker game.
+ */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -11,6 +16,12 @@ public class AddHeartCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;
 
+    /**
+     * Howdy, friends! This here constructor sets up the AddHeartCollisionStrategy, makin' sure we're
+     * ready to spread some love in the game.
+     *
+     * @param gameManager The game manager, keepin' things in check on the ol' dusty trail.
+     */
     public AddHeartCollisionStrategy(BrickerGameManager gameManager) {
         this.gameManager = gameManager;
     }
