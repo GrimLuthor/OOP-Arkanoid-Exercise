@@ -1,4 +1,4 @@
-package bricker.constants;
+package bricker.main;
 
 import danogl.gui.rendering.RectangleRenderable;
 import danogl.util.Vector2;
@@ -13,6 +13,12 @@ import java.awt.*;
  * smooth like butter, ya feel?
  */
 public class GameConstants {
+
+    /**
+     * bruh.... just, bruh.
+     */
+    private GameConstants() {}
+
     // Names:
     public static final String TITLE_NAME = "Bricker";
 

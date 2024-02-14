@@ -1,6 +1,6 @@
 package bricker.brick_strategies;
 
-import bricker.constants.GameConstants;
+import bricker.main.GameConstants;
 import bricker.gameobjects.Ball;
 import bricker.gameobjects.CameraReverter;
 import bricker.main.BrickerGameManager;

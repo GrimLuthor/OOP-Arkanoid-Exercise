@@ -2,7 +2,6 @@ package bricker.main;
 
 import bricker.brick_strategies.CollisionStrategy;
 import bricker.brick_strategies.CollisionStrategyFactory;
-import bricker.constants.GameConstants;
 import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
