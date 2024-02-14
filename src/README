@@ -43,6 +43,28 @@ generate. This approach saves us the need to create more instances of strategies
 
 
 5.
+
 At BrickerGameManager:
 
-decreaseLives(),increaseLives() methods: Added so the
+increaseLives() method: Added so the manager does this functionality but the heart token could call for it.
+addObjectToRender(),addObjectToRender() methods: Again, manager implements the rendering of objects, but it
+has to be called in other objects and strategies.
+setCameraToFollowBall() method: used by the camera follow strat, managed by the manager as it should.
+revertCamera() method: the camera has to be set back after a timer/counter which is implemented in other
+classes.
+setExtraPaddle() method: sets the extra paddle if required by a strategy.
+removeBrick() method: removes the brick from the rendering queue, called by basically all brick collision
+strats.
++ a lot of getters for variables needed by other classes.
+
+At Paddle:
+getGameManager() method: is used by the ExtraPaddle since it inherits from the Paddle class.
+
+Added gameConstants at bricker.constants:
+Basically extracted all the consts to this module to edit them easily, as is good practice
+
+classes LivesBar and Heart are objects in implementation of lives UI.
+
+HeartToken inherits the Heart with additional functionality since its no longer just a UI representation.
+
+ExtraPaddle inherits from the Paddle class an adds functionality.
