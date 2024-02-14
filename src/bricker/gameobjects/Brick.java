@@ -1,7 +1,3 @@
-/**
- * Ah, lads 'n' lasses, behold the mighty Brick class! This here brick be part o' the Bricker game,
- * standin' tall 'n' sturdy, ready fer any collision that may come its way.
- */
 package bricker.gameobjects;
 
 import bricker.brick_strategies.CollisionStrategy;
@@ -10,6 +6,11 @@ import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+
+/**
+ * Ah, lads 'n' lasses, behold the mighty Brick class! This here brick be part o' the Bricker game,
+ * standin' tall 'n' sturdy, ready fer any collision that may come its way.
+ */
 
 public class Brick extends GameObject {
 

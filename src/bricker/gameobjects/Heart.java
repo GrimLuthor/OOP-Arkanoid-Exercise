@@ -1,7 +1,3 @@
-/**
- * Hey there, folks! Welcome to the Heart class. This class represents a lovely heart object
- * within the Bricker game. It's all about spreading some love and positivity!
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -9,6 +5,11 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+
+/**
+ * Hey there, folks! Welcome to the Heart class. This class represents a lovely heart object
+ * within the Bricker game. It's all about spreading some love and positivity!
+ */
 
 public class Heart extends GameObject {
 

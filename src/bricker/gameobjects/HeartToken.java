@@ -1,7 +1,3 @@
-/**
- * Oi, look over here! This 'ere be the HeartToken class, representin' a token of love in the Bricker game.
- * It's all about spreadin' some warmth 'n' affection, ya know?
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -9,6 +5,11 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+
+/**
+ * Oi, look over here! This 'ere be the HeartToken class, representin' a token of love in the Bricker game.
+ * It's all about spreadin' some warmth 'n' affection, ya know?
+ */
 
 public class HeartToken extends GameObject {
 
@@ -42,6 +43,7 @@ public class HeartToken extends GameObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        // If the token falls off the screen remove it
         if (getCenter().y() > gameManager.getWindowDimensions().y()) {
             removeSelf();
         }
