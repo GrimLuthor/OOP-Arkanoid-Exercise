@@ -40,7 +40,9 @@ public class BrickerGameManager extends GameManager {
     private LivesBar livesBar;
     private TextRenderable livesCounterLabel;
 
-    // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
+    /**
+     *  Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
+     */
     public static void main(String[] args) {
         BrickerGameManager gameManager;
         // Check if the user has provided the dimensions for the bricks. If not, use the default ones.
@@ -257,15 +259,17 @@ public class BrickerGameManager extends GameManager {
         removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
     }
 
-    // Decrease dem lives, mate! Gotta keep it real, keep it challenging!
-    private void decreaseLives() {
-        livesBar.removeLife();
+    /**
+     * Yo, let's stack those lives! Bring 'em back, bring 'em strong!
+     */
+    public void increaseLives() {
+        livesBar.addLife();
         updateLivesCounter();
     }
 
-    // Yo, let's stack those lives! Bring 'em back, bring 'em strong!
-    public void increaseLives() {
-        livesBar.addLife();
+    // Decrease dem lives, mate! Gotta keep it real, keep it challenging!
+    private void decreaseLives() {
+        livesBar.removeLife();
         updateLivesCounter();
     }
 
