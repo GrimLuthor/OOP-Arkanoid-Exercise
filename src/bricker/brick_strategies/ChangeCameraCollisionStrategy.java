@@ -1,3 +1,8 @@
+/**
+ * Och aye, laddies and lassies! Welcome tae the ChangeCameraCollisionStrategy class. This strategy here's
+ * as bonnie as the Highlands, changin' the camera's focus when there's a collision with a ball. It's all
+ * aboot givin' the players a view worth a wee dram o' whisky, ya ken?
+ */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -7,11 +12,6 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.util.Vector2;
 
-/**
- * Och aye, laddies and lassies! Welcome tae the ChangeCameraCollisionStrategy class. This strategy here's
- * as bonnie as the Highlands, changin' the camera's focus when there's a collision with a ball. It's all
- * aboot givin' the players a view worth a wee dram o' whisky, ya ken?
- */
 public class ChangeCameraCollisionStrategy implements CollisionStrategy {
 
     private final BrickerGameManager gameManager;

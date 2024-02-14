@@ -1,7 +1,3 @@
-/**
- * Yo, check it! Dis right here be the ExtraPaddle class, representin' an extra paddle in da Bricker game.
- * It be like a regular paddle, but wit' some extra spice, ya feel me?
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -11,6 +7,11 @@ import danogl.collisions.Collision;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
+
+/**
+ * Yo, check it! Dis right here be the ExtraPaddle class, representin' an extra paddle in da Bricker game.
+ * It be like a regular paddle, but wit' some extra spice, ya feel me?
+ */
 
 public class ExtraPaddle extends Paddle {
 
@@ -35,6 +36,7 @@ public class ExtraPaddle extends Paddle {
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
+        // counts the collisions, and if it reaches a certain number, the extra paddle is removed
         collisionCounter.increment();
         if (collisionCounter.value() > GameConstants.COLLISIONS_TO_REMOVE_EXTRA_PADDLE) {
             getGameManager().removeObjectFromRender(this, GameConstants.EXTRA_PADDLE_LAYER);

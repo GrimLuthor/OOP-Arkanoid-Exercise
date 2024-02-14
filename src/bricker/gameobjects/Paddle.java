@@ -1,7 +1,3 @@
-/**
- * A'richt, lads 'n' lasses! Welcome tae the Paddle class. This wee class represents a paddle object
- * in the Bricker game. It's aw aboot keepin' yersel' in control o' the game, ken?
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -12,6 +8,11 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 import java.awt.event.KeyEvent;
+
+/**
+ * Exquisite, lads 'n' lasses! Welcome tae the Paddle class. This wee class represents a paddle object
+ * in the Bricker game. It's aw aboot keepin' yersel' in control o' the game, ken?
+ */
 
 public class Paddle extends GameObject {
 
@@ -39,6 +40,8 @@ public class Paddle extends GameObject {
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
+        // If the paddle collides with a heart token, remove the heart token from the game and increase
+        // the player's lives.
         if (other.getTag().equals(GameConstants.HEART_TOKEN_TAG)) {
             gameManager.removeObjectFromRender(other, GameConstants.HEART_TOKEN_LAYER);
             gameManager.increaseLives();
@@ -51,7 +54,7 @@ public class Paddle extends GameObject {
         super.update(deltaTime);
 
         Vector2 movementDirection = Vector2.ZERO;
-
+        // If the left or right arrow keys are pressed, move the paddle in the corresponding direction.
         if (gameManager.getInputListener().isKeyPressed(KeyEvent.VK_LEFT)) {
             movementDirection = movementDirection.add(Vector2.LEFT.mult(MOVEMENT_SPEED));
         }
@@ -59,7 +62,7 @@ public class Paddle extends GameObject {
             movementDirection = movementDirection.add(Vector2.RIGHT.mult(MOVEMENT_SPEED));
         }
         setVelocity(movementDirection);
-
+        // If the paddle is at the edge of its range of movement, stop it from moving further.
         if (getTopLeftCorner().x() < rangeOfMovement.x()) {
             setTopLeftCorner(new Vector2(rangeOfMovement.x(), getTopLeftCorner().y()));
         }
@@ -70,7 +73,7 @@ public class Paddle extends GameObject {
     }
 
     /**
-     * A'richt, pal! This method gets the game manager, helpin' keep things runnin' smoothly in the game.
+     * Splendid, pal! This method gets the game manager, helpin' keep things runnin' smoothly in the game.
      *
      * @return The game manager for this paddle.
      */

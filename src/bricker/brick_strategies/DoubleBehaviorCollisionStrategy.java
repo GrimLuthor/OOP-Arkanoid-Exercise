@@ -1,14 +1,15 @@
-/**
- * Alright, mates! Welcome to the DoubleBehaviorCollisionStrategy class. This strategy is a bit of a
- * cheeky one, mixin' up multiple behaviors when there's a collision in the Bricker game. It's like
- * havin' a proper cuppa with a slice of Victoria sponge cake - double the pleasure, innit?
- */
 package bricker.brick_strategies;
 
 import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 
 import java.util.Random;
+
+/**
+ * Alright, mates! Welcome to the DoubleBehaviorCollisionStrategy class. This strategy is a bit of a
+ * cheeky one, mixin' up multiple behaviors when there's a collision in the Bricker game. It's like
+ * havin' a proper cuppa with a slice of Victoria sponge cake - double the pleasure, innit?
+ */
 
 public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
 
@@ -26,12 +27,13 @@ public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
-
+        // Let's get a bit cheeky and mix things up a bit, shall we?
         CollisionStrategyFactory collisionStrategyFactory = new CollisionStrategyFactory();
         Random random = new Random();
 
         int numberOfBehaviors = random.nextInt(5) == 4 ? 3 : 2;
 
+        // If there are only two behaviors, there's a 20% chance of adding a third behavior
         if (numberOfBehaviors == 2) {
             numberOfBehaviors = random.nextInt(5) == 4 ? 3 : 2;
         }

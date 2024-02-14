@@ -1,7 +1,3 @@
-/**
- * Hey there! Welcome to the Puck class. This class represents a puck object in the Bricker game.
- * It's like a ball, but with its own cool vibe, you know?
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -9,6 +5,11 @@ import bricker.main.BrickerGameManager;
 import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+
+/**
+ * Hey there! Welcome to the Puck class. This class represents a puck object in the Bricker game.
+ * It's like a ball, but with its own cool vibe, you know?
+ */
 
 public class Puck extends Ball {
 

@@ -28,6 +28,7 @@ public class BrickerGameManager extends GameManager {
 
     // Oi, hold tight, check out these variables, innit?
     private final Vector2 brickParams;
+    private final Random random = new Random();
     private Ball ball;
     private ExtraPaddle extraPaddle;
     private Vector2 windowDimensions;
@@ -38,7 +39,6 @@ public class BrickerGameManager extends GameManager {
     private WindowController windowController;
     private LivesBar livesBar;
     private TextRenderable livesCounterLabel;
-    private final Random random = new Random();
 
     /**
      * Yo, check it! Constructor for the BrickerGameManager, yeah? Takes in the window title
@@ -56,6 +56,19 @@ public class BrickerGameManager extends GameManager {
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions, Vector2 brickParams) {
         super(windowTitle, windowDimensions);
         this.brickParams = brickParams;
+    }
+
+    // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
+    public static void main(String[] args) {
+        BrickerGameManager gameManager;
+        if (args.length == GameConstants.EXPECTED_ARGS_AMOUNT) {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE,
+                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
+
+        } else {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE);
+        }
+        gameManager.run();
     }
 
     // Now, we get to the nitty-gritty, the initialization. Get ready to rumble, yeah?
@@ -118,6 +131,120 @@ public class BrickerGameManager extends GameManager {
                 windowController.closeWindow();
             }
         }
+    }
+
+    /**
+     * Adds a bloomin' object to the renderin' system with default layerin'.
+     * Smooth and clean renderin' ensured, mate!
+     *
+     * @param gameObject The game object to be rendered, innit?
+     */
+    public void addObjectToRender(GameObject gameObject) {
+        gameObjects().addGameObject(gameObject);
+    }
+
+    /**
+     * Adds a bleedin' object to the renderin' system with a specific layer.
+     * Ensures organization and tidiness in renderin', you see?
+     *
+     * @param gameObject The game object to be rendered, mate.
+     * @param layer      The layer to render the object on, blimey!
+     */
+    public void addObjectToRender(GameObject gameObject, int layer) {
+        gameObjects().addGameObject(gameObject, layer);
+    }
+
+    /**
+     * Removes an object from renderin', maintaining neatness and tightness, mate.
+     *
+     * @param gameObject The game object to be removed from renderin', mate.
+     */
+    public void removeObjectFromRender(GameObject gameObject) {
+        gameObjects().removeGameObject(gameObject);
+    }
+
+    /**
+     * Removes an object from renderin' on a specific layer.
+     * Ensures focus and sharpness in renderin', bloke.
+     *
+     * @param gameObject The game object to be removed from renderin', mate.
+     * @param layer      The layer from which to remove the object, blimey.
+     */
+    public void removeObjectFromRender(GameObject gameObject, int layer) {
+        gameObjects().removeGameObject(gameObject, layer);
+    }
+
+    /**
+     * Sets the camera to follow the ball, ensurin' dynamic and lively trackin'.
+     * The camera widens the frame and shares window dimensions for smooth trackin', you see.
+     */
+    public void setCameraToFollowBall() {
+        setCamera(
+                new Camera(
+                        ball, //object to follow
+                        Vector2.ZERO, //follow the center of the object
+                        windowController.getWindowDimensions().mult(GameConstants.CAMERA_ZOOM), // widen frame
+                        windowController.getWindowDimensions() //share the window dimensions
+                )
+        );
+    }
+
+    /** Revert the camera, mate! Keep it stable, keep it still!
+     */
+    public void revertCamera() {
+        setCamera(null);
+    }
+
+    /** Get the window dimensions, mate! Know your space, know your limits!
+     */
+    public Vector2 getWindowDimensions() {
+        return windowDimensions;
+    }
+
+    /** Get the sound reader, mate! Keep it loud, keep it clear!
+     */
+    public SoundReader getSoundReader() {
+        return soundReader;
+    }
+
+    /** Get the image reader, mate! Keep it visual, keep it vibrant!
+     */
+    public ImageReader getImageReader() {
+        return imageReader;
+    }
+
+    /** Get the input listener, mate! Keep it responsive, keep it active!
+     */
+    public UserInputListener getInputListener() {
+        return inputListener;
+    }
+
+    /** Get the bricks counter, mate! Keep it countin', keep it steady!
+     */
+    public Counter getBricksCounter() {
+        return bricksCounter;
+    }
+
+    /** Get the extra paddle, mate! Keep it versatile, keep it flexible!
+     */
+    public ExtraPaddle getExtraPaddle() {
+        return extraPaddle;
+    }
+
+    /** Set the extra paddle, mate! Keep it adaptable, keep it resourceful!
+     */
+    public void setExtraPaddle(ExtraPaddle extraPaddle) {
+        this.extraPaddle = extraPaddle;
+    }
+
+    /**
+     * Howdy, cowboy! This here method removes a brick from the game when it's time for it to mosey on out.
+     *
+     * @param gameObject1 The brick object to be removed.
+     */
+    public void removeBrick(GameObject gameObject1) {
+        getBricksCounter().decrement();
+        removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
     }
 
     // Decrease dem lives, mate! Gotta keep it real, keep it challenging!
@@ -232,100 +359,5 @@ public class BrickerGameManager extends GameManager {
             topLeft = new Vector2(GameConstants.GAP_BETWEEN_BRICKS,
                     topLeft.y() + brickHeight + GameConstants.GAP_BETWEEN_BRICKS);
         }
-    }
-
-    // Add object to render, mate! Keep it smooth, keep it clean!
-    public void addObjectToRender(GameObject gameObject) {
-        gameObjects().addGameObject(gameObject);
-    }
-
-    // Add object to render with a specific layer, mate! Keep it organized, keep it tidy!
-    public void addObjectToRender(GameObject gameObject, int layer) {
-        gameObjects().addGameObject(gameObject, layer);
-    }
-
-    // Remove object from render, mate! Keep it neat, keep it tight!
-    public void removeObjectFromRender(GameObject gameObject) {
-        gameObjects().removeGameObject(gameObject);
-    }
-
-    // Remove object from render with a specific layer, mate! Keep it focused, keep it sharp!
-    public void removeObjectFromRender(GameObject gameObject, int layer) {
-        gameObjects().removeGameObject(gameObject, layer);
-    }
-
-    // Set the camera to follow the ball, mate! Keep it dynamic, keep it lively!
-    public void setCameraToFollowBall() {
-        setCamera(
-                new Camera(
-                        ball, //object to follow
-                        Vector2.ZERO, //follow the center of the object
-                        windowController.getWindowDimensions().mult(GameConstants.CAMERA_ZOOM), // widen frame
-                        windowController.getWindowDimensions() //share the window dimensions
-                )
-        );
-    }
-
-    // Revert the camera, mate! Keep it stable, keep it still!
-    public void revertCamera() {
-        setCamera(null);
-    }
-
-    // Get the window dimensions, mate! Know your space, know your limits!
-    public Vector2 getWindowDimensions() {
-        return windowDimensions;
-    }
-
-    // Get the sound reader, mate! Keep it loud, keep it clear!
-    public SoundReader getSoundReader() {
-        return soundReader;
-    }
-
-    // Get the image reader, mate! Keep it visual, keep it vibrant!
-    public ImageReader getImageReader() {
-        return imageReader;
-    }
-
-    // Get the input listener, mate! Keep it responsive, keep it active!
-    public UserInputListener getInputListener() {
-        return inputListener;
-    }
-
-    // Get the bricks counter, mate! Keep it countin', keep it steady!
-    public Counter getBricksCounter() {
-        return bricksCounter;
-    }
-
-    // Get the extra paddle, mate! Keep it versatile, keep it flexible!
-    public ExtraPaddle getExtraPaddle() {
-        return extraPaddle;
-    }
-
-    // Set the extra paddle, mate! Keep it adaptable, keep it resourceful!
-    public void setExtraPaddle(ExtraPaddle extraPaddle) {
-        this.extraPaddle = extraPaddle;
-    }
-
-    /**
-     * Howdy, cowboy! This here method removes a brick from the game when it's time for it to mosey on out.
-     *
-     * @param gameObject1 The brick object to be removed.
-     */
-    public void removeBrick(GameObject gameObject1) {
-        getBricksCounter().decrement();
-        removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
-    }
-
-    // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
-    public static void main(String[] args) {
-        BrickerGameManager gameManager;
-        if (args.length == GameConstants.EXPECTED_ARGS_AMOUNT) {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE,
-                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
-
-        } else {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE);
-        }
-        gameManager.run();
     }
 }

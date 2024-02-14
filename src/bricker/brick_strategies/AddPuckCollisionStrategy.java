@@ -1,8 +1,3 @@
-/**
- * Howdy, y'all! Welcome to the AddPuckCollisionStrategy class. This strategy right here is as wild
- * as a Texas tornado, addin' a whole mess of pucks to the game when there's a collision. It's all 'bout
- * mixin' things up and keepin' folks on their toes, ain't it?
- */
 package bricker.brick_strategies;
 
 import bricker.constants.GameConstants;
@@ -14,6 +9,12 @@ import danogl.gui.rendering.ImageRenderable;
 import danogl.util.Vector2;
 
 import java.util.Random;
+
+/**
+ * Howdy, y'all! Welcome to the AddPuckCollisionStrategy class. This strategy right here is as wild
+ * as a Texas tornado, addin' a whole mess of pucks to the game when there's a collision. It's all 'bout
+ * mixin' things up and keepin' folks on their toes, ain't it?
+ */
 
 public class AddPuckCollisionStrategy implements CollisionStrategy {
 
@@ -31,6 +32,7 @@ public class AddPuckCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
+        // Add pucks to the game
         Vector2 puckDims = new Vector2(GameConstants.BALL_SIZE, GameConstants.BALL_SIZE)
                 .mult(GameConstants.BALL_PUCK_RATIO);
         Vector2 puckPos = new Vector2(gameObject1.getCenter().subtract(puckDims.mult(0.5f)));

@@ -1,13 +1,12 @@
+package bricker.brick_strategies;
+
+import danogl.GameObject;
+
 /**
  * Howdy, y'all! Welcome to the CollisionStrategy interface. This here interface sets the rules
  * for what goes down when objects bump heads in the Bricker game. It's all 'bout keepin' things
  * in line, ya know?
  */
-package bricker.brick_strategies;
-
-import bricker.constants.GameConstants;
-import bricker.main.BrickerGameManager;
-import danogl.GameObject;
 
 public interface CollisionStrategy {
 

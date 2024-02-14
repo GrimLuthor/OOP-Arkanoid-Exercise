@@ -1,7 +1,3 @@
-/**
- * Dis be de Ball class, representing a ball object inside de Bricker game.
- * De Ball be movin' an' collidin' within de game world.
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -12,6 +8,11 @@ import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
+
+/**
+ * Dis be de Ball class, representing a ball object inside de Bricker game.
+ * De Ball be movin' an' collidin' within de game world.
+ */
 
 public class Ball extends GameObject {
     private final Counter collisionCounter = new Counter();
@@ -43,7 +44,7 @@ public class Ball extends GameObject {
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
-        setVelocity(newVel);
+        setVelocity(newVel);    // Reverse the velocity of the ball.
         collisionSound.play();
         collisionCounter.increment();
     }
@@ -51,6 +52,7 @@ public class Ball extends GameObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        // If the ball goes out of the window, remove it from the render list.
         if (getCenter().y() > gameManager.getWindowDimensions().y()) {
             gameManager.removeObjectFromRender(this, GameConstants.BALL_LAYER);
         }

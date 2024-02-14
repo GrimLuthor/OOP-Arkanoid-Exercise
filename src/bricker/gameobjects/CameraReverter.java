@@ -1,7 +1,3 @@
-/**
- * Howdy, y'all! Welcome to the CameraReverter class. This here class is all 'bout keepin' an eye on the ball
- * in the Bricker game and revertin' the camera when things get wild.
- */
 package bricker.gameobjects;
 
 import bricker.constants.GameConstants;
@@ -9,6 +5,11 @@ import bricker.main.BrickerGameManager;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
+
+/**
+ * Howdy, y'all! Welcome to the CameraReverter class. This here class is all 'bout keepin' an eye on the ball
+ * in the Bricker game and revertin' the camera when things get wild.
+ */
 
 public class CameraReverter extends GameObject {
     private final BrickerGameManager gameManager;
@@ -36,7 +37,7 @@ public class CameraReverter extends GameObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
+        // If the ball has collided enough times, reset the camera.
         if (ball.getCollisionCounter() - baseCollisions > GameConstants.COLLISIONS_TO_REVERT_CAMERA) {
             gameManager.revertCamera();
             gameManager.removeObjectFromRender(this);
