@@ -45,7 +45,7 @@ public class AddPuckCollisionStrategy implements CollisionStrategy {
             puck.setVelocity(new Vector2(angle.x(), angle.y()).mult(GameConstants.BALL_SPEED));
             gameManager.addObjectToRender(puck, GameConstants.BALL_LAYER);
         }
-        removeBrick(gameManager, gameObject1);
+        gameManager.removeBrick(gameObject1);
     }
 
     /**

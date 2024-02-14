@@ -41,6 +41,6 @@ public class DoubleBehaviorCollisionStrategy implements CollisionStrategy {
             collisionStrategyFactory.generateStrategy(gameManager,
                     random.nextInt(4)).onCollision(gameObject1, gameObject2);
         }
-        removeBrick(gameManager, gameObject1);
+        gameManager.removeBrick(gameObject1);
     }
 }

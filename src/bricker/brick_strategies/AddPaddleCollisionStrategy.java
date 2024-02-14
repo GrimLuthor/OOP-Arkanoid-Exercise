@@ -41,6 +41,6 @@ public class AddPaddleCollisionStrategy implements CollisionStrategy {
             gameManager.addObjectToRender(extraPaddle, GameConstants.EXTRA_PADDLE_LAYER);
             gameManager.setExtraPaddle(extraPaddle);
         }
-        removeBrick(gameManager, gameObject1);
+        gameManager.removeBrick(gameObject1);
     }
 }

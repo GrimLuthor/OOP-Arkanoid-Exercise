@@ -121,7 +121,7 @@ public class BrickerGameManager extends GameManager {
     }
 
     // Decrease dem lives, mate! Gotta keep it real, keep it challenging!
-    public void decreaseLives() {
+    private void decreaseLives() {
         livesBar.removeLife();
         updateLivesCounter();
     }
@@ -304,6 +304,16 @@ public class BrickerGameManager extends GameManager {
     // Set the extra paddle, mate! Keep it adaptable, keep it resourceful!
     public void setExtraPaddle(ExtraPaddle extraPaddle) {
         this.extraPaddle = extraPaddle;
+    }
+
+    /**
+     * Howdy, cowboy! This here method removes a brick from the game when it's time for it to mosey on out.
+     *
+     * @param gameObject1 The brick object to be removed.
+     */
+    public void removeBrick(GameObject gameObject1) {
+        getBricksCounter().decrement();
+        removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
     }
 
     // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!

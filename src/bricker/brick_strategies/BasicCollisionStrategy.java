@@ -23,6 +23,6 @@ public class BasicCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject gameObject1, GameObject gameObject2) {
-        removeBrick(gameManager, gameObject1);
+        gameManager.removeBrick(gameObject1);
     }
 }

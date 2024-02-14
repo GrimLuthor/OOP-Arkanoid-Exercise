@@ -1,16 +1,48 @@
-grim_daniel, noam_navon
-332559202, 214668048
+grim_daniel,noam_navon
+332559202,214668048
 
 1. When implementing the elimination of bricks we chose to send the instance of our gameManager to the
-brickCollisionStrategy. The advantages are: ___. The disadvantages are: ___.
+brickCollisionStrategy.
+
+- The advantages are:
+We are delegating the right responsibilities to each class, the game manager does it's job - deleting the
+bricks from render, and how he does it is the manager's business, not the brick's.
+We don't have to send tens of variables since the manager has getters for all the relevant data.
+
+- The disadvantages are:
+We are giving the brick class more than it needs, the brick class suddenly has the power to manage the whole
+game through the gameManager, while it needs only a part of all of managers functionality.
+It also creates a circular relationship between the classes, the game manager has the game which has the
+bricks which have the game manager - it's unintuitive.
+
+
 2. In the implementation, we created the 'LivesBar' class to manage graphical representation of player's lives
 using heart objects from 'Heart' class, and the numerical representation is managed using the 'TextRenderable'
-class. The BrickerGameManager class orchestrates these elements, updating them based on changes in player's
+class. The BrickerGameManager class manages these elements, updating them based on changes in player's
 lives count and handling logic for increasing and decreasing lives.
+
+
+
 3. To implement the special behaviors, we utilized specific collision strategies tailored to each. The
 AddPaddleCollisionStrategy class creates an extra paddle object from 'ExtraPaddle' class.
 Similarly, the AddHeartCollisionStrategy class generates a heart token object from 'HeartToken' class that
-upon impact with the paddle gains the player an extra life. The AddPuckCollisionStrategy class creates
+on impact with the paddle gains the player an extra life. The AddPuckCollisionStrategy class creates
 multiple pucks objects from 'Puck' class. And the ChangeCameraCollisionStrategy class dynamically adjusts the
 camera behavior, and uses an object from 'CameraReverter' class to determine when to change the camera back to
 normal.
+
+
+
+4. We chose a relatively simple approach to this problem, while we could've done some decorator trickery, we
+chose to look at this problem this way: Suppose we get a double behavior in the brick, in the end it should
+result in two "regular" behaviors. So we randomise a number corresponding to the behavior factory integer to
+generate a certain behavior, if we get the number that creates another double behavior, we just roll two
+other, more "regular" behaviors. if we didn't get a double behavior on the roll, we do it again.
+At the end of the day, we turn the double behavior into the number of more normal behaviors we want to
+generate. This approach saves us the need to create more instances of strategies.
+
+
+5.
+At BrickerGameManager:
+
+decreaseLives(),increaseLives() methods: Added so the

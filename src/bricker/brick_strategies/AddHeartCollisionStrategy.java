@@ -37,6 +37,6 @@ public class AddHeartCollisionStrategy implements CollisionStrategy {
         heartToken.setVelocity(Vector2.DOWN.mult(GameConstants.HEART_SPEED));
         gameManager.addObjectToRender(heartToken, GameConstants.HEART_TOKEN_LAYER);
 
-        removeBrick(gameManager, gameObject1);
+        gameManager.removeBrick(gameObject1);
     }
 }

@@ -19,15 +19,4 @@ public interface CollisionStrategy {
      * @param gameObject2 The second object involved in the collision.
      */
     void onCollision(GameObject gameObject1, GameObject gameObject2);
-
-    /**
-     * Howdy, cowboy! This here method removes a brick from the game when it's time for it to mosey on out.
-     *
-     * @param gameManager The game manager, keepin' things runnin' smoothly.
-     * @param gameObject1 The brick object to be removed.
-     */
-    default void removeBrick(BrickerGameManager gameManager, GameObject gameObject1) {
-        gameManager.getBricksCounter().decrement();
-        gameManager.removeObjectFromRender(gameObject1, GameConstants.BRICK_LAYER);
-    }
 }
