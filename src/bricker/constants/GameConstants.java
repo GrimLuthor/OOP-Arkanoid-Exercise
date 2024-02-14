@@ -5,6 +5,13 @@ import danogl.util.Vector2;
 
 import java.awt.*;
 
+/**
+ * Yo, check it! Dis class be like da hub o' all da constants we need in our game, ya know? It's got all
+ * da juicy deets 'bout da game variables, object layers, texture paths, placing params, sound paths, and
+ * even dem game object tags, fam. So when we need any o' dese values elsewhere in our code, we just hit
+ * up dis class, and boom, we got what we need, innit? It's like our cheat sheet to keep da game runnin'
+ * smooth like butter, ya feel?
+ */
 public class GameConstants {
     // Names:
     public static final String TITLE_NAME = "Bricker";

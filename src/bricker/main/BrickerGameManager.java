@@ -1,8 +1,3 @@
-/**
- * Alright, mate, listen up! This 'ere is the BrickerGameManager, the heart and soul of the game.
- * It's the boss, the governor, the one pullin' all the strings behind the scenes, ya get me?
- * So, let's break it down, yeah?
- */
 package bricker.main;
 
 import bricker.brick_strategies.CollisionStrategy;
@@ -24,6 +19,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+/**
+ * Alright, mate, listen up! This 'ere is the BrickerGameManager, the heart and soul of the game.
+ * It's the boss, the governor, the one pullin' all the strings behind the scenes, ya get me?
+ * So, let's break it down, yeah?
+ */
+
 public class BrickerGameManager extends GameManager {
 
     // Oi, hold tight, check out these variables, innit?
@@ -40,6 +41,20 @@ public class BrickerGameManager extends GameManager {
     private LivesBar livesBar;
     private TextRenderable livesCounterLabel;
 
+    // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
+    public static void main(String[] args) {
+        BrickerGameManager gameManager;
+        // Check if the user has provided the dimensions for the bricks. If not, use the default ones.
+        if (args.length == GameConstants.EXPECTED_ARGS_AMOUNT) {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE,
+                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
+
+        } else {
+            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE);
+        }
+        gameManager.run();
+    }
+
     /**
      * Yo, check it! Constructor for the BrickerGameManager, yeah? Takes in the window title
      * and dimensions, proper setup for the game, innit?
@@ -52,23 +67,19 @@ public class BrickerGameManager extends GameManager {
         this.brickParams = GameConstants.DEFAULT_BRICKS_AMOUNT;
     }
 
-    // You wanna go custom, mate? Here's the deal. Customize the bricks, make 'em your own!
+    /**
+     * Yo, fam! Dis 'ere be da constructor fer a fresh BrickerGameManager. It takes in da title o' da window,
+     * da size o' da window, and da brick params. Dis constructor sets up da game manager wif da specified
+     * title and size fer da window, ya know? Da brick params? Dey be tellin' us how many bricks we gonna
+     * 'ave in da game and 'ow dey gonna be arranged, innit?
+     *
+     * @param windowTitle Da title o' da game window, matey.
+     * @param windowDimensions Da size o' da game window, fam.
+     * @param brickParams Da params determinin' da layout and arrangement o' da bricks in da game, matey.
+     */
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions, Vector2 brickParams) {
         super(windowTitle, windowDimensions);
         this.brickParams = brickParams;
-    }
-
-    // Alright, let's get the show on the road, mate! Fire up the main method and let's roll!
-    public static void main(String[] args) {
-        BrickerGameManager gameManager;
-        if (args.length == GameConstants.EXPECTED_ARGS_AMOUNT) {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE,
-                    new Vector2(Integer.parseInt(args[0]), Integer.parseInt(args[1])));
-
-        } else {
-            gameManager = new BrickerGameManager(GameConstants.TITLE_NAME, GameConstants.WINDOW_SIZE);
-        }
-        gameManager.run();
     }
 
     // Now, we get to the nitty-gritty, the initialization. Get ready to rumble, yeah?
