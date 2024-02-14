@@ -9,8 +9,8 @@ import danogl.util.Counter;
 import danogl.util.Vector2;
 
 /**
- * Yo, fam, check this out! This class right here is the LivesBar, keepin' track of how many lives you got left
- * in the Bricker game. It's all about survivin' on these mean streets, ya know?
+ * Yo, fam, check this out! This class right here is the LivesBar, keepin' track of how many lives you got
+ * left in the Bricker game. It's all about survivin' on these mean streets, ya know?
  */
 
 public class LivesBar extends GameObject {
