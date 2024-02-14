@@ -158,8 +158,8 @@ public class GameConstants {
     /**
      * Wall render... or not, who knows.
      */
-    // public static final RectangleRenderable WALL_RENDER = null;
-    public static final RectangleRenderable WALL_RENDER = new RectangleRenderable(WALL_COLOR);
+    public static final RectangleRenderable WALL_RENDER = null;
+    // public static final RectangleRenderable WALL_RENDER = new RectangleRenderable(WALL_COLOR);
 
     // Placing Params:
     /**
